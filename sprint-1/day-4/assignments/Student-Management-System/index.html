@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Student Management System (25-06-2022) - Sanajit Jana (fw19_0513)
+    </title>
+    <style>
+      body {
+        font-family: sans-serif;
+        margin: 0;
+      }
+      #middleBox {
+        display: flex;
+        flex-direction: column;
+        font-family: sans-serif;
+        align-items: center;
+        margin: auto;
+        margin-top: 200px;
+      }
+      #navbar {
+        padding: 5px 100px;
+        background-color: #1c2938;
+        display: grid;
+        grid-template-columns: 85% 15%;
+        grid-template-rows: auto;
+        gap: 20px;
+      }
+      #navbar > div:nth-child(2) {
+        display: flex;
+        justify-content: space-between;
+      }
+      #navbar > div > p {
+        color: #d7d7d7;
+      }
+    </style>
+  </head>
+  <body></body>
+  <script>
+    //navbar create
+    let arr = ["Dashboard", "Add-Students"];
+    let page = ["dashboard", "add-students"];
+    let navbar = document.createElement("div");
+    navbar.setAttribute("id", "navbar");
+    let logoBox = document.createElement("div");
+    let logoAnchor = document.createElement("a");
+    logoAnchor.setAttribute("href", "index.html");
+    logoAnchor.style.textDecoration = "none";
+    logoAnchor.style.color = "#d7d7d7";
+    let logo = document.createElement("p");
+    logoAnchor.innerText = "Masai School";
+    logo.append(logoAnchor);
+
+    let check = localStorage.getItem("checkLoginAuth");
+    let menuBox = document.createElement("div");
+    for (let i = 0; i < arr.length; i++) {
+      let menu = document.createElement("p");
+      let anchor = document.createElement("a");
+      anchor.style.textDecoration = "none";
+      anchor.style.color = "#d7d7d7";
+      anchor.setAttribute("href", `${page[i]}.html`);
+
+      if (check == null) {
+        anchor.innerText = arr[i];
+      } else {
+        arr[3] = "Logged In";
+        anchor.innerText = arr[i];
+      }
+
+      menu.append(anchor);
+      menuBox.append(menu);
+    }
+    logoBox.append(logo);
+    navbar.append(logoBox, menuBox);
+    //navbar end
+
+    //hoome page
+    let middleBox = document.createElement("div");
+    middleBox.setAttribute("id", "middleBox");
+    let h2 = document.createElement("h2");
+    h2.innerText = "Welcome";
+    let h1 = document.createElement("h1");
+    h1.innerText = "This is Home Page";
+    h1.style.marginTop = "0";
+    middleBox.append(h2, h1);
+    document.querySelector("body").append(navbar, middleBox);
+  </script>
+</html>

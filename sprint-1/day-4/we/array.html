@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    let newArr = new Array(1, 2, 3);
+    // console.log(newArr);
+
+    //add custom function to JS
+    Array.prototype.nameMethod = function () {
+      console.log("Sanjit Jana");
+    };
+    newArr.nameMethod();
+
+    //add myPush function to JS
+    Array.prototype.pushMethod = function (val) {
+      let top = this.length;
+      this[top] = val;
+    };
+    // push 10,120 at the end of array
+    newArr.pushMethod(10);
+    newArr.pushMethod(120);
+    console.log(newArr);
+
+    //pop value at the end of array
+    Array.prototype.popMethod = function () {
+      let top = this.length;
+      delete this[top];
+    };
+    // pop val from the end of array
+    newArr.popMethod();
+    console.log(newArr);
+  </script>
+</html>

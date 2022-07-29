@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    //making a stack
+    //make custom stack push and pop
+
+    class Stack {
+      constructor() {
+        this.length = 0;
+        this.stack = [];
+      }
+      //collect evevry data using spread operator
+      myPush(...arr) {
+        // console.log(arr);
+
+        arr.forEach((item) => {
+          let index = this.length;
+          this.stack[index] = item;
+          this.length++;
+        });
+      }
+      remove() {
+        let index = this.length - 1;
+        delete this.stack[index];
+        this.stack.length--;
+        this.length--;
+      }
+    }
+
+    let s1 = new Stack();
+    s1.myPush(1, 2, 3, 4, 5, 6, 7, 8);
+    s1.remove();
+    // console.log(s1);
+    //ans - stack: (7) [1, 2, 3, 4, 5, 6, 7]
+
+    class NewStack {
+      constructor() {
+        this.length = 0;
+        this.stack = [];
+      }
+      myPush(...args) {
+        // this.stack.push(...args);
+        args.forEach((ele) => {
+          let index = this.length;
+          this.stack[index] = ele;
+          this.length++;
+        });
+      }
+      myPop() {
+        let index = this.length;
+        delete this.stack[index];
+        this.stack.length--;
+        this.length--;
+      }
+
+      myPeek() {
+        return this.stack[this.length - 1];
+      }
+
+      isEmpty() {
+        let value =
+          this.length == 0
+            ? "Stack is empty"
+            : `Stack has ${this.length} elements`;
+        console.log(value);
+      }
+    }
+
+    let n1 = new NewStack();
+    n1.myPush(1, 2, 3, 4, 5, 6, 7, 8);
+    n1.myPush(10, 20, 30);
+    console.log(n1);
+    n1.isEmpty();
+    n1.myPop();
+    n1.myPop();
+    let lastEle = n1.myPeek();
+    console.log(lastEle);
+    n1.isEmpty();
+
+    //ans - stack: [1, 2, 3, 4, 5, 6, 7, 8, 10]
+    //ans - lastEle 10
+  </script>
+</html>

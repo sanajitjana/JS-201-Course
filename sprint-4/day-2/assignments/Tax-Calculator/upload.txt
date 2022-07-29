@@ -1,0 +1,78 @@
+
+// ------------------ tax_calculator.js files code here ------------------ //
+
+
+let calculateTax = (incomes, savings) => {
+  if (incomes >= 250000 && incomes <= 500000) {
+    incomes = incomes - (savings * 50) / 100;
+    return tax(incomes);
+  } else if (incomes > 500000 && incomes <= 1000000) {
+    incomes = incomes - (savings * 30) / 100;
+    return tax(incomes);
+  } else if (incomes > 1000000) {
+    incomes = incomes - (savings * 10) / 100;
+    return tax(incomes);
+  } else {
+    return "No tax applicable";
+  }
+};
+
+function tax(incomes) {
+  if (incomes < 250000) {
+    return "No tax applicable";
+  }
+  if (incomes >= 250000 && incomes <= 500000) {
+    return (incomes * 10) / 100;
+  }
+  if (incomes > 500000 && incomes <= 1000000) {
+    return 50000 + ((incomes - 500000) * 20) / 100;
+  }
+  if (incomes > 1000000) {
+    return 150000 + ((incomes - 1000000) * 30) / 100;
+  }
+}
+
+export default calculateTax;
+
+
+// ------------------ tax_calculator.test.js files code here ------------------ //
+
+
+import tax from "./tax_calculator.js";
+
+test("Calculate tax", () => {
+  expect(tax(250000, 40000)).toEqual("No tax applicable");
+});
+test("Calculate tax", () => {
+  expect(tax(500000, 40000)).toEqual(48000);
+});
+test("Calculate tax", () => {
+  expect(tax(750000, 40000)).toEqual(97600);
+});
+test("Calculate tax", () => {
+  expect(tax(1000000, 40000)).toEqual(147600);
+});
+test("Calculate tax", () => {
+  expect(tax(1500000, 40000)).toEqual(298800);
+});
+test("Calculate tax", () => {
+  expect(tax(2000000, 40000)).toEqual(448800);
+});
+
+
+// ------------------ npm test report here ------------------ //
+
+
+ PASS  ./tax_calculator.test.js
+  √ Calculate tax (5 ms)
+  √ Calculate tax (1 ms)
+  √ Calculate tax
+  √ Calculate tax (1 ms)
+  √ Calculate tax (1 ms)
+  √ Calculate tax (1 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       6 passed, 6 total
+Snapshots:   0 total
+Time:        1.943 s
+Ran all test suites.

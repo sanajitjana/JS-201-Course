@@ -1,0 +1,25 @@
+#container {
+  display: grid;
+  grid-template-columns: 20% 80%;
+  flex-direction: row;
+}
+#results {
+  padding: 50px;
+  background-color: white;
+  margin-right: 60px;
+}
+.news {
+  border: 2px solid teal;
+  margin-bottom: 20px;
+  display: flex;
+}
+.news:hover {
+  cursor: pointer;
+}
+.news img {
+  width: 250px;
+  height: 100%;
+}
+.right {
+  padding: 10px 15px;
+}

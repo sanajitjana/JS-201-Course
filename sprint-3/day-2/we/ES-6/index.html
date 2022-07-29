@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Class based Constructor function</h1>
+    <h3>Inside Console</h3>
+  </body>
+  <script>
+    //normal constructor function in javascript
+    function Student(n) {
+      this.name = n;
+      this.batch = "Web 19";
+    }
+    Student.prototype.myName = function () {
+      //   console.log(this);
+    };
+    let val = new Student("Sanajit");
+    // console.log(val);
+
+    //class base constructor function in javascript (ES6)
+    class Students {
+      constructor(n) {
+        this.name = n;
+        this.batch = "Web 19";
+      }
+    }
+    Students.prototype.myName = function () {
+      //   console.log(this);
+    };
+
+    let s1 = new Students("Sanajit");
+    // console.log(s1);
+
+    //We can add method inside class in javascript (ES6)
+    class Studentss {
+      constructor(n) {
+        this.name = n;
+        this.batch = "Web 19";
+      }
+      myName() {
+        console.log(this.name);
+      }
+    }
+
+    let p1 = new Studentss("Sanajit");
+    console.log(s1);
+  </script>
+</html>

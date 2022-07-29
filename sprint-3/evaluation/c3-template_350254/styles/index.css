@@ -1,0 +1,64 @@
+body {
+  font-family: sans-serif;
+  padding: 0;
+  margin: 0;
+}
+#navbar {
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: black;
+  color: white;
+  padding: 0px 75px;
+}
+#navbar a {
+  text-decoration: none;
+  color: white;
+}
+#navbar a:hover {
+  text-decoration: underline;
+}
+#login {
+  margin-right: 20px;
+}
+#query {
+  width: 300px;
+  padding: 10px 15px;
+  outline: none;
+  border: none;
+  font-size: 14px;
+}
+#sorting {
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: teal;
+  padding: 0px 75px;
+  height: 50px;
+}
+#hotels-list {
+  width: 90%;
+  margin: auto;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+#hotel {
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+#hotel img {
+  width: 100%;
+}
+
+#hotel h3,
+p {
+  padding: 0px 20px;
+}
+.book {
+  margin-left: 20px;
+  margin-bottom: 20px;
+}

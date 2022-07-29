@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Slide Show</h1>
+    <input type="text" id="img-url" placeholder="Enter img url" />
+    <button id="submit" onclick="addImage()">Submit</button>
+    <button onclick="displaySlideShow()">DisplayStart SlideShow</button>
+    <button onclick="pauseSlideShow()">Pause SlideShow</button>
+    <div id="slide-show"></div>
+  </body>
+  <script>
+    let imgArray = JSON.parse(localStorage.getItem("images")) || [];
+    let interValId;
+
+    // collect images and store to localStorage
+    function addImage() {
+      let img_url = document.getElementById("img-url");
+      imgArray.push(img_url.value);
+      localStorage.setItem("images", JSON.stringify(imgArray));
+      img_url.value = "";
+    }
+
+    // use these images to create slide show
+    let i = 0;
+    function displaySlideShow() {
+      let slideShowBox = document.getElementById("slide-show");
+
+      interValId = setInterval(function () {
+        if (i == imgArray.length) {
+          i = 0;
+        }
+        let img = document.createElement("img");
+        img.src = imgArray[i];
+        slideShowBox.innerHTML = "";
+        slideShowBox.append(img);
+        i++;
+      }, 1000);
+    }
+
+    //pause slide show
+    function pauseSlideShow() {
+      clearInterval(interValId);
+    }
+  </script>
+</html>

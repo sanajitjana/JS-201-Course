@@ -1,0 +1,28 @@
+body {
+  font-family: sans-serif;
+  background-color: #181818;
+  color: white;
+}
+#navbar {
+  display: flex;
+  justify-content: center;
+}
+#container {
+  display: grid;
+  grid-template-columns: 15% 85%;
+}
+#videos {
+  width: 95%;
+  margin: auto;
+  margin-top: 50px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  color: white;
+}
+#videos > div {
+  cursor: pointer;
+}
+#videos img {
+  width: 100%;
+}

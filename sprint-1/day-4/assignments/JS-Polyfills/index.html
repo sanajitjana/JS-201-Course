@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    let arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+
+    // Array.map() - making custom myMap()
+    Array.prototype.myMap = function (func) {
+      let arr = this;
+      let newArr = [];
+      for (let i = 0; i < arr.length; i++) {
+        newArr.push(func(arr[i]));
+      }
+      return newArr;
+    };
+    let resultMyMap = arr.myMap(function (ele) {
+      return ele * 2;
+    });
+    // console.log(resultMyMap);
+
+    // Array.forEach() - making custom myForEach()
+    Array.prototype.myForEach = function (func) {
+      let arr = this;
+      for (let i = 0; i < arr.length; i++) {
+        // console.log(func(arr[i]));
+      }
+    };
+    let resultMyForEach = arr.myForEach(function (ele) {
+      return ele * 2;
+    });
+
+    // Array.filter() - making custom myFilter()
+    Array.prototype.myFilter = function (func) {
+      let arr = this;
+      let newArr = [];
+      for (let i = 0; i < arr.length; i++) {
+        let val = func(arr[i]);
+        if (val) {
+          newArr.push(val);
+        }
+      }
+      return newArr;
+    };
+    let resultMyFilter = arr.myFilter(function (ele) {
+      if (ele % 2 == 0) return ele;
+    });
+    // console.log(resultMyFilter);
+
+    // Array.reduce() - making custom myReduce()
+    Array.prototype.myReduce = function (func, acc) {
+      //   if acc not mention
+      if (arguments.length == 1) {
+        acc = 0;
+      }
+      for (let i = 0; i < this.length; i++) {
+        acc = func(acc, this[i]);
+      }
+      return acc;
+    };
+    let resultMyReduce = arr.myReduce(function (acc, val) {
+      return acc + val;
+    }, 10);
+    // console.log(resultMyReduce);
+  </script>
+</html>

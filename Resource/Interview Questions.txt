@@ -1,0 +1,14 @@
+1. What is the first-class function in JS?
+2. What is the callback function?
+3. What is the callback hell function?
+4. Print "Hello World" - 
+   hello - print after 5sec.
+   world - print immediately after printing hello.
+5. What is the client-server model?
+6. What is API?
+7. What are the different kinds of requests you can make to the server?
+8. How many data types and explore - BigInt and Symbol
+9. What is Hoisting in JS?
+10. Explain different types of "Type coercion" in JS?
+11. What is clouser in JS?
+12. What is debouncing in JS?

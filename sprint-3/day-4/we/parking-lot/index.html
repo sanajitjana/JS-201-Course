@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    class ParkingLot {
+      #floors;
+      constructor(no) {
+        this.#floors = [];
+        this.numberOfFloors = no;
+
+        for (let i = 0; i < no; i++) {
+          this.#floors[i] = new ParkingFloors(i, no);
+        }
+      }
+    }
+
+    class ParkingFloors {
+      #floorNumber;
+
+      constructor(floorNum, maxFloor) {
+        this.#floorNumber = floorNum;
+        this.parkingSpots = [];
+        for (var i = 0; i < maxFloor; i++) {
+          if (i === 0) {
+            this.parkingSpots.push(new Slot("Bus", i));
+          } else if (i === 1) {
+            this.parkingSpots.push(new Slot("Bike", i));
+          } else {
+            this.parkingSpots.push(new Slot("Car", i));
+          }
+        }
+      }
+    }
+
+    class Slot {
+      #isBooked;
+
+      constructor(type, no) {
+        this.floorNumber = no;
+        this.type = type;
+        this.#isBooked = false;
+      }
+    }
+
+    let p = new ParkingLot(3);
+    console.log(p);
+  </script>
+</html>

@@ -1,0 +1,23 @@
+#navbar {
+  width: 90%;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+#form {
+  margin-top: 50px;
+  text-align: center;
+}
+#box {
+  margin: auto;
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  width: 450px;
+}
+input,
+button {
+  padding: 10px 15px;
+  margin-bottom: 10px;
+}

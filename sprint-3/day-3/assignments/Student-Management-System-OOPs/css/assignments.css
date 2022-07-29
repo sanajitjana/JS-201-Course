@@ -1,0 +1,103 @@
+#logo a:nth-child(3) {
+  border-bottom: 2px solid #818cf8;
+}
+#lecture-add-row {
+  width: 78%;
+  margin: auto;
+  background-color: white;
+  padding: 20px 25px;
+  border: 1px solid rgba(128, 128, 128, 0.232);
+  display: grid;
+  display: flex;
+  align-items: center;
+  margin-top: 50px;
+  justify-content: space-between;
+}
+#lectures-table {
+  margin-bottom: 50px;
+  margin-top: 50px;
+}
+.row {
+  width: 78%;
+  margin: auto;
+  background-color: white;
+  padding: 0px 25px;
+  border: 1px solid rgba(128, 128, 128, 0.232);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.row:hover {
+  background-color: #f9fafb;
+  cursor: pointer;
+}
+.top {
+  display: flex;
+  align-items: center;
+  color: #4f46e5;
+  font-weight: 400;
+}
+.lec-heading {
+  font-size: 20px;
+}
+.tag {
+  background-color: #16a34a;
+  color: white;
+  padding: 3px 5px;
+  border-radius: 4px;
+  margin-left: 5px;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+.bottom {
+  display: flex;
+  font-size: 12px;
+  margin-top: -20px;
+  margin-bottom: 10px;
+  color: rgba(0, 0, 0, 0.841);
+}
+.delete-btn {
+  padding: 8px 15px;
+  border: none;
+  background-color: rgb(227, 2, 2);
+  color: white;
+}
+.delete-btn:hover {
+  cursor: pointer;
+}
+#ladd-submit {
+  padding: 8px 15px;
+  border: none;
+  background-color: #14532d;
+  color: white;
+}
+#ladd-submit:hover {
+  cursor: pointer;
+}
+#ladd-left input {
+  width: 500px;
+  height: 15px;
+  padding: 10px 15px;
+  font-size: 14px;
+  border: 1px solid rgba(128, 128, 128, 0.784);
+  outline-color: rgba(128, 128, 128, 0.784);
+  margin-right: 10px;
+}
+#ladd-left input:focus {
+  outline-color: #4e46e57c;
+}
+#ladd-right {
+  display: flex;
+  justify-content: right;
+}
+#ladd-left select {
+  height: 36px;
+  padding: 0px 10px;
+  font-size: 14px;
+  border: 1px solid rgba(128, 128, 128, 0.784);
+  outline-color: rgba(128, 128, 128, 0.784);
+  margin-right: 10px;
+}
+#ladd-left select:focus {
+  outline-color: #4e46e57c;
+}

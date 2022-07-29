@@ -1,0 +1,23 @@
+form {
+  width: 450px;
+  margin: auto;
+  background-color: white;
+  padding: 20px 30px;
+  border: 1px solid rgba(128, 128, 128, 0.232);
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+}
+input {
+  margin-bottom: 10px;
+  padding: 10px 15px;
+  font-size: 16px;
+}
+#submit {
+  background-color: transparent;
+}
+#submit:hover {
+  background-color: black;
+  color: white;
+  cursor: pointer;
+}

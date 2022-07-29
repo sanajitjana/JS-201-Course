@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        width: 100%;
+        text-align: center;
+        margin-top: 50px;
+      }
+    </style>
+  </head>
+  <body></body>
+  <script>
+    let loading_img = "https://c.tenor.com/K2UGDd4acJUAAAAC/load-loading.gif";
+    let success_img = "https://c.tenor.com/xVfFIHxAzW4AAAAC/success.gif";
+    let faliure_img =
+      "https://c.tenor.com/flmQIupAKBkAAAAC/steven-he-failure.gif";
+
+    let body = document.querySelector("body");
+    let img = document.createElement("img");
+    img.src = loading_img;
+    body.append(img);
+
+    function bankServer() {
+      return true;
+    }
+    let payment_promise = new Promise(function (resolve, reject) {
+      let pin = bankServer();
+      setTimeout(function () {
+        if (pin) {
+          resolve("Payment Sucessful");
+        } else {
+          reject("Try again later");
+        }
+      }, 3000);
+    });
+
+    //handling payment_promise by .then .catch
+    // payment_promise.then(function (res) {
+    //   console.log(res);
+    //   img.src = success_img;
+    // });
+    // payment_promise.catch(function (res) {
+    //   console.log(res);
+    //   img.src = faliure_img;
+    // });
+
+    //handling payment_promise by async await
+    async function check() {
+      try {
+        let res = await payment_promise;
+        console.log(res);
+        img.src = success_img;
+      } catch (e) {
+        console.log(e);
+        img.src = faliure_img;
+      }
+    }
+    check();
+  </script>
+</html>

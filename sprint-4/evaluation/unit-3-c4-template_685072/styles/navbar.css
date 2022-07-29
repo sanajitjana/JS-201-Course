@@ -1,0 +1,25 @@
+body {
+  padding: 0;
+  margin: 0;
+  background-color: #feecce;
+}
+#navbar {
+  display: flex;
+  background-color: #feecd0;
+  padding: 0px 60px;
+  gap: 20px;
+  height: 70px;
+  align-items: center;
+}
+#home {
+  font-size: 22px;
+  width: 10%;
+  font-weight: 600;
+}
+#search_input {
+  width: 90%;
+  padding: 10px 15px;
+  border-radius: 50px;
+  border: 2px solid rgb(155, 155, 155);
+  font-size: 14px;
+}

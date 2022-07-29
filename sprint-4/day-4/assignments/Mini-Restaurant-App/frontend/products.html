@@ -1,0 +1,54 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Products</title>
+    <link rel="stylesheet" href="./style/style.css" />
+  </head>
+  <body>
+    <div id="navbar">
+      <div id="logo">
+        <a href="index.html">
+          <img
+            src="https://www.nicepng.com/png/full/305-3055806_ricoh-logo-png-download-single-belkin-surge-protector.png"
+            alt="logo"
+          />
+        </a>
+      </div>
+      <div id="menus">
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="login.html">Login</a>
+        <a href="signup.html">Signup</a>
+      </div>
+    </div>
+    <div id="prod_page_container">
+      <div id="add-products">
+        <form action="">
+          <h2>Products</h2>
+          <div class="input-group">
+            <input type="number" id="id" placeholder="ID" />
+            <input type="text" id="img" placeholder="Image URL" />
+          </div>
+          <div class="input-group">
+            <input type="text" id="name" placeholder="Name" />
+            <input type="number" id="price" placeholder="Price" />
+          </div>
+          <div class="input-group">
+            <input type="number" id="rating" placeholder="Rating - Max(10)" />
+            <textarea id="description" placeholder="Description"></textarea>
+          </div>
+          <input type="submit" id="submit" value="Submit" />
+        </form>
+      </div>
+      <div id="sorting-filter">
+        <button id="PLTH">Price Low to High</button>
+        <button id="PHTL">Price Low to High</button>
+        <button id="RABV3">Rating Above 4</button>
+      </div>
+      <div id="products-container"></div>
+    </div>
+    <script src="./script/products.js"></script>
+  </body>
+</html>

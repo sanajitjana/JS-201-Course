@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PhonePay Payment - Sanajit Jana (fw19_0513)</title>
+    <style>
+      body {
+        position: relative;
+      }
+      #upi-mobile {
+        display: flex;
+        justify-content: center;
+        margin-top: 30px;
+      }
+      #btn {
+        position: absolute;
+        top: 365px;
+        height: 40px;
+        width: 40px;
+        border-radius: 50px;
+        border-color: transparent;
+        background-color: #1b3280;
+        color: white;
+        margin-left: 125px;
+      }
+      #btn:hover {
+        cursor: pointer;
+        background-color: #2846a7;
+      }
+      #processiong-mobile {
+        display: none;
+      }
+      #white-space {
+        position: absolute;
+        width: 228.5px;
+        height: 359px;
+        top: 82px;
+        margin-left: -8px;
+        background-color: white;
+        z-index: 1;
+      }
+      #show-processiong-mobile {
+        display: inline-flex;
+        justify-content: center;
+        margin: auto;
+        margin-top: 22px;
+        width: 100%;
+      }
+      #loading-img {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        width: 100px;
+        top: 250px;
+        z-index: 2;
+      }
+      #processing-text {
+        position: absolute;
+        display: flex;
+        text-align: center;
+        z-index: 2;
+        top: 210px;
+        font-family: sans-serif;
+        font-weight: 400;
+      }
+      #phonepay-logo {
+        position: absolute;
+        display: flex;
+        width: 50px;
+        text-align: center;
+        z-index: 2;
+        top: 150px;
+      }
+      #processing-text-warn {
+        position: absolute;
+        display: flex;
+        text-align: center;
+        z-index: 2;
+        top: 400px;
+        font-family: sans-serif;
+        font-weight: 400;
+        font-size: 12px;
+      }
+      #display-none {
+        display: none;
+      }
+      #success-img {
+        display: none;
+      }
+      #display-block {
+        display: block;
+      }
+      #show-success-img {
+        position: absolute;
+        top: 120px;
+        z-index: 3;
+        width: 210px;
+        display: inline-flex;
+        justify-content: center;
+        margin: auto;
+        margin-top: 22px;
+      }
+      #success-text {
+        display: none;
+      }
+      #show-success-text {
+        display: inline-flex;
+        position: absolute;
+        text-align: center;
+        z-index: 3;
+        top: 280px;
+        font-family: sans-serif;
+        font-weight: 400;
+      }
+      #go-back {
+        display: none;
+      }
+      #show-go-back {
+        display: inline-flex;
+        position: absolute;
+        text-align: center;
+        z-index: 3;
+        top: 340px;
+        font-family: sans-serif;
+        font-weight: 600;
+        font-size: 12px;
+        border: 2px solid #5c2499;
+        text-transform: uppercase;
+        border-radius: 20px;
+        padding: 4px 12px;
+        background-color: transparent;
+      }
+      #show-go-back:hover {
+        cursor: pointer;
+        background-color: #5c2499;
+        color: white;
+        border-color: transparent;
+      }
+      #failed-img {
+        display: none;
+      }
+      #show-failed-img {
+        position: absolute;
+        top: 160px;
+        z-index: 3;
+        width: 70px;
+        display: inline-flex;
+        justify-content: center;
+        margin: auto;
+        margin-top: 22px;
+      }
+      #failed-text {
+        display: none;
+      }
+      #show-failed-text {
+        display: inline-flex;
+        position: absolute;
+        text-align: center;
+        z-index: 3;
+        top: 280px;
+        font-family: sans-serif;
+        font-weight: 400;
+      }
+      .rotateimg180 {
+        -webkit-transform: rotate(180deg);
+        -moz-transform: rotate(180deg);
+        -ms-transform: rotate(180deg);
+        -o-transform: rotate(180deg);
+        transform: rotate(180deg);
+      }
+      #arrow {
+        position: absolute;
+        top: 345px;
+        z-index: 3;
+        width: 70px;
+        display: inline-flex;
+        justify-content: center;
+        margin-left: 300px;
+      }
+      #copyright {
+        position: absolute;
+        top: 490px;
+        z-index: 3;
+        width: 70px;
+        display: inline-flex;
+        justify-content: center;
+        font-family: sans-serif;
+        font-size: 14px;
+        text-decoration: none;
+        color: #2846a7;
+      }
+      #copyright:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="upi-mobile">
+      <img id="upi-img" src="./upi.png" alt="" />
+      <button id="btn"><span style="font-size: 25px">&#10003;</span></button>
+      <img class="rotateimg180" id="arrow" src="./arrow.gif" alt="" />
+      <a id="copyright" href="https://sanajitjana.github.io/" target="_blank"
+        >&copy;&nbsp;sanajitjana</a
+      >
+    </div>
+    <div id="processiong-mobile">
+      <img id="upi-img" src="./upi.png" alt="" />
+      <div id="white-space"></div>
+      <img id="phonepay-logo" src="./phonepe-logo.png" alt="" />
+      <div id="processing-text">Please wait,<br />processing your request</div>
+      <img id="loading-img" src="./loading.gif" alt="" />
+      <div id="processing-text-warn">
+        Do not press F5 or refresh button<br />until it's completed
+      </div>
+      <img id="success-img" src="./sucess.gif" alt="" />
+      <div id="success-text">
+        Payment of ₹1,413.00<br />
+        to Suraj successful.
+      </div>
+      <button id="go-back">Go Back</button>
+      <img id="failed-img" src="./failed.gif" alt="" />
+      <div id="failed-text">
+        Payment failed<br />
+        try again!
+      </div>
+    </div>
+  </body>
+  <script>
+    let upi_mobile = document.getElementById("upi-mobile");
+    let processiong_mobile = document.getElementById("processiong-mobile");
+    let processing_text = document.getElementById("processing-text");
+    let loading_img = document.getElementById("loading-img");
+    let processing_text_warn = document.getElementById("processing-text-warn");
+    let success_img = document.getElementById("success-img");
+    let phonepay_logo = document.getElementById("phonepay-logo");
+    let success_text = document.getElementById("success-text");
+    let go_back = document.getElementById("go-back");
+    let failed_img = document.getElementById("failed-img");
+    let failed_text = document.getElementById("failed-text");
+
+    let upi_btn = document
+      .getElementById("btn")
+      .addEventListener("click", clickFunction);
+
+    go_back.addEventListener("click", backFunction);
+    function backFunction() {
+      window.location.reload();
+    }
+
+    function clickFunction() {
+      upi_mobile.style.display = "none";
+      processiong_mobile.setAttribute("id", "show-processiong-mobile");
+      check();
+    }
+
+    function bankServer() {
+      let val = Math.floor(Math.random() * 10);
+      if (val > 5) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+
+    let payment_promise = new Promise(function (resolve, reject) {
+      let pin = bankServer();
+      setTimeout(function () {
+        if (pin) {
+          resolve("Payment Sucessful");
+        } else {
+          reject("Try again later");
+        }
+      }, 3000);
+    });
+
+    async function check() {
+      try {
+        let res = await payment_promise;
+        phonepay_logo.setAttribute("id", "display-none");
+        processing_text.setAttribute("id", "display-none");
+        loading_img.setAttribute("id", "display-none");
+        processing_text_warn.setAttribute("id", "display-none");
+        success_img.setAttribute("id", "show-success-img");
+        success_text.setAttribute("id", "show-success-text");
+        go_back.setAttribute("id", "show-go-back");
+      } catch (e) {
+        phonepay_logo.setAttribute("id", "display-none");
+        processing_text.setAttribute("id", "display-none");
+        loading_img.setAttribute("id", "display-none");
+        processing_text_warn.setAttribute("id", "display-none");
+        failed_img.setAttribute("id", "show-failed-img");
+        failed_text.setAttribute("id", "show-failed-text");
+        go_back.setAttribute("id", "show-go-back");
+      }
+    }
+  </script>
+</html>

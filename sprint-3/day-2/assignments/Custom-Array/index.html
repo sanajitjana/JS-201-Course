@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Custom Array (06-07-2022) - Sanajit Jana (fw19_0513)</title>
+    <style>
+      body {
+        font-family: sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Custom Array using class constructor</h1>
+  </body>
+  <script>
+    //custom Array class constructor which will return an array object
+    //It have a property size based on the length of arguments passed
+
+    class customArray {
+      constructor(...arrr) {
+        this.arr = [];
+        this.length = 0;
+        arrr.forEach((element) => {
+          this.arr.push(element);
+          this.length++;
+        });
+      }
+
+      myPop() {
+        if (this.length == 0) {
+          return undefined;
+        } else {
+          let lastEle = this.arr[this.length - 1];
+          this.arr.splice(this.length - 1, 1);
+          this.length--;
+          return lastEle;
+        }
+      }
+
+      myPush(val) {
+        this.arr[this.length] = val;
+        this.length++;
+      }
+
+      myForEach(func) {
+        for (let i = 0; i < this.length; i++) {
+          console.log(func(this.arr[i]));
+        }
+      }
+
+      myMap(func) {
+        let newArr = [];
+        for (let i = 0; i < this.length; i++) {
+          newArr.push(func(this.arr[i]));
+        }
+        return newArr;
+      }
+
+      myFilter(func) {
+        let arr = [];
+        for (let i = 0; i < this.length; i++) {
+          if (func(this.arr[i])) {
+            arr.push(this.arr[i]);
+          }
+        }
+        return arr;
+      }
+
+      myReduce(func, acc) {
+        if (arguments.length == 1) {
+          acc = 0;
+        }
+        for (let i = 0; i < this.length; i++) {
+          let ele = this.arr[i];
+          acc = func(acc, ele);
+        }
+        return acc;
+      }
+    }
+
+    //create a new instance of the class
+    let arr = new customArray(1, 2, 3, 4, 5, 6);
+    console.log("myArray", arr);
+    //passed
+
+    // my pop
+    arr.myPop();
+    console.log("myPopResult", arr);
+    ///passed
+
+    // my push
+    arr.myPush(10);
+    console.log("myPushResult", arr);
+    // passed
+
+    // my Reduce
+    let reduceResult = arr.myReduce(function (acc, val) {
+      return acc + val;
+    }, 0);
+    console.log("reduceResult", reduceResult);
+    //passed
+
+    // my Filter
+    let filterResult = arr.myFilter(function (x) {
+      return x % 2 == 0;
+    });
+    console.log("filterResult", filterResult);
+    //passed
+
+    //my forEach
+    console.log("forEachResult");
+    arr.myForEach(function (ele) {
+      return ele * 2;
+    });
+    //passed
+
+    //my map
+    let mapResult = arr.myMap(function (x) {
+      return x * 2;
+    });
+    console.log("mapResult", mapResult);
+    //passed
+  </script>
+</html>

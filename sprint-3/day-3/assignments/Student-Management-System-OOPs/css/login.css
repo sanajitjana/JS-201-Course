@@ -1,0 +1,46 @@
+form {
+  width: 350px;
+  margin: auto;
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  padding: 5px 30px 30px 30px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  background-color: white;
+}
+input,
+select {
+  margin-bottom: 10px;
+  padding: 10px 15px;
+  font-size: 16px;
+}
+form h2 {
+  text-align: center;
+  text-transform: capitalize;
+}
+#submit-btn {
+  background-color: transparent;
+}
+#submit-btn:hover {
+  background-color: black;
+  color: white;
+  cursor: pointer;
+}
+form p {
+  text-align: center;
+}
+form a {
+  text-decoration: none;
+  color: #234f8b;
+}
+form a:hover {
+  text-decoration: underline;
+}
+#submit-btn {
+  background-color: transparent;
+}
+#submit-btn:hover {
+  background-color: black;
+  color: white;
+  cursor: pointer;
+}

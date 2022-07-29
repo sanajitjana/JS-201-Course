@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="stylesheet" href="./css/navbar.css" />
+    <link rel="stylesheet" href="./css/login.css" />
+  </head>
+  <body>
+    <div id="navbar">
+      <div id="logo">
+        <a href="./index.html">
+          <img
+            style="color: white"
+            src="https://masaischool.com/img/navbar/logo.svg"
+            alt="masai-logo"
+          />
+        </a>
+      </div>
+      <div id="menu">
+        <a href="./index.html">Home</a>
+      </div>
+    </div>
+    <div id="container">
+      <form action="">
+        <h2>login</h2>
+        <select name="" id="role">
+          <option value="">Role</option>
+          <option value="Student">Student</option>
+          <option value="Admin">Admin</option>
+        </select>
+        <input type="email" id="email" placeholder="Enter email" />
+        <input type="password" id="password" placeholder="Enter password" />
+        <input type="submit" id="submit-btn" value="Submit" />
+        <p>New user? <a href="./signup.html">Create a new account!</a></p>
+      </form>
+    </div>
+  </body>
+  <script src="./script/main.js"></script>
+  <script src="./script/login.js"></script>
+</html>

@@ -1,0 +1,56 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form action="">
+      <input type="number" id="id" placeholder="Enter id" />
+      <input type="text" id="name" placeholder="Enter product name" />
+      <input type="number" id="price" placeholder="Enter product price" />
+      <button onclick="addProduct()">Add</button>
+    </form>
+
+    <form action="">
+      <input type="text" id="name" placeholder="Enter id" />
+      <button onclick="deleteFunction()">Delete</button>
+    </form>
+  </body>
+  <script>
+    async function addProduct() {
+      let product = {
+        id: document.getElementById("id").value,
+        name: document.getElementById("name").value,
+        price: document.getElementById("price").value,
+      };
+
+      product = JSON.stringify(product);
+      let response = await fetch("http://127.0.0.1:3000/api/products", {
+        method: "POST",
+        body: product,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      let data = response.json();
+      console.log(data);
+    }
+
+    async function deleteFunction() {
+      let id = document.getElementById("id").value;
+
+      let response = await fetch(`http://127.0.0.1:3000/api/products/${id}`, {
+        method: "DELETE",
+        headers: {
+          "content-type": "application/json",
+        },
+      });
+
+      let data = await response.json();
+      console.log(data);
+    }
+  </script>
+</html>

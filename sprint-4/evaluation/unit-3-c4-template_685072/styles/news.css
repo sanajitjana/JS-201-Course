@@ -1,0 +1,14 @@
+#detailed_news {
+  width: 70%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 50px;
+  margin-top: 50px;
+}
+
+#detailed_news img {
+  width: 100%;
+  display: block;
+  margin: auto;
+}

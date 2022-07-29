@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>counter</title>
+  </head>
+  <body>
+    <h1>Counter</h1>
+    <h2 id="count">0</h2>
+    <input type="text" id="text" placeholder="Start Typing" />
+  </body>
+  <script>
+    let name = "Sanajit";
+    function counter() {
+      let count = 0;
+      let textBox = document.getElementById("text");
+      let id = setInterval(function () {
+        if (textBox.value === name) {
+          alert("You won!");
+          clearInterval(id);
+        }
+        if (count === 10) {
+          textBox.disabled = true;
+          alert("You lose!");
+          clearInterval(id);
+        }
+        let h2 = document.getElementById("count");
+        h2.innerText = count;
+        count++;
+      }, 1000);
+    }
+
+    counter();
+  </script>
+</html>

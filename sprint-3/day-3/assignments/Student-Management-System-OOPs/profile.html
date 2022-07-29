@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile</title>
+    <link rel="stylesheet" href="./css/navbar.css" />
+    <link rel="stylesheet" href="./css/profile.css" />
+  </head>
+  <body>
+    <div id="navbar">
+      <div id="logo">
+        <a href="./index.html">
+          <img
+            style="color: white"
+            src="https://masaischool.com/img/navbar/logo.svg"
+            alt="masai-logo"
+          />
+        </a>
+        <a href="./lectures.html" id="lectures">Lectures</a>
+        <a href="./assignments.html" id="assignments">Assignments</a>
+        <a href="./user-list.html" id="user-list">User List</a>
+      </div>
+      <div id="menu">
+        <a href="./login.html" id="login-menu">Login</a>
+        <select name="" id="profile">
+          <option value="" id="profile-name-id"></option>
+          <option value="edit-profile" id="edit-profile"></option>
+          <option value="logout">Logout</option>
+        </select>
+      </div>
+    </div>
+    <hr id="nav-divider" />
+    <div id="sub-navbar">
+      <div><p>Profile</p></div>
+      <div></div>
+    </div>
+    <div id="container">
+      <form action="">
+        <h3>Update your profile details</h3>
+        <input type="email" id="email" placeholder="Email" disabled />
+        <input type="text" id="name" placeholder="Name" />
+        <input type="password" id="old-password" placeholder="Old password" />
+        <input type="password" id="new-password" placeholder="New password" />
+        <input type="submit" id="submit" value="Update" />
+      </form>
+    </div>
+  </body>
+  <script src="./script/navbar.js"></script>
+  <script src="./script/profile.js"></script>
+</html>

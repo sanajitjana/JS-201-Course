@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="shortcut icon"
+      href="https://mcdindia.com/wp-content/uploads/2020/04/favicon.ico"
+      type="image/x-icon"
+    />
+    <title>Macdonald App - Sanajit Jana (fw19_0513)</title>
+    <style>
+      body {
+        position: relative;
+        width: 95%;
+        margin: auto;
+        font-family: sans-serif;
+      }
+      #action-bar {
+        display: flex;
+        width: 50%;
+        margin-top: 50px;
+        justify-content: center;
+        font-size: 22px;
+        align-items: center;
+        z-index: 1;
+      }
+      #action-bar > input {
+        margin-right: 10px;
+      }
+      #product-list {
+        width: 50%;
+        margin-top: 50px;
+        margin-bottom: 50px;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        position: relative;
+      }
+      .card {
+        margin: auto;
+        padding: 10px;
+        border: 2px solid transparent;
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+        background-color: white;
+      }
+      .card:hover {
+        cursor: pointer;
+        border: 2px dashed #ffbc0d;
+      }
+      .card > img {
+        width: 100%;
+      }
+      h3,
+      p {
+        padding: 0px 10px;
+      }
+      h3 {
+        font-size: 16px;
+      }
+      p {
+        margin-top: -5px;
+      }
+      #order-food {
+        background-color: transparent;
+        font-size: 18px;
+        padding: 10px 15px;
+        border: 2px solid #ffbc0d;
+        border-color: #ffbc0d;
+      }
+      #order-food:hover {
+        cursor: pointer;
+        border-color: black;
+      }
+      #name {
+        font-size: 16px;
+        padding: 10px 15px;
+        border: 2px solid #ffbc0d;
+      }
+      #name:hover {
+        border: 2px solid black;
+      }
+      #name:focus-visible {
+        border: 2px solid #ffbc0d;
+      }
+      #food-table {
+        display: flex;
+        gap: 0px 40px;
+      }
+      #order-list {
+        width: 50%;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 50px;
+      }
+      #loading {
+        display: none;
+      }
+      #show-loading {
+        margin: auto;
+        width: 200px;
+        display: block;
+        margin-top: 150px;
+      }
+      #processing-text {
+        display: none;
+      }
+      #show-processing-text {
+        margin: auto;
+        display: block;
+        margin-top: -120px;
+      }
+      #display-block {
+        display: block;
+      }
+      #display-none {
+        display: none;
+      }
+      #order-img {
+        width: 100px;
+      }
+      #order-card {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        border-bottom: 1px solid grey;
+      }
+      h4 {
+        font-size: 14px;
+      }
+      h5 {
+        font-weight: lighter;
+        font-size: 14px;
+      }
+      #order-ready {
+        display: flex;
+        justify-content: space-between;
+        font-weight: 600;
+        border-bottom: 2px solid #ffbc0d;
+      }
+      #guide {
+        margin: auto;
+        font-size: 20px;
+        background-color: #ffbc0d;
+      }
+      #total-line {
+        text-align: right;
+        margin-top: 10px;
+        font-weight: 600;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="action-bar">
+      <input type="text" id="name" placeholder="Enter your name" required />
+      <button id="order-food">Order Food</button>
+    </div>
+    <div id="food-table">
+      <div id="product-list"></div>
+      <div id="order-list">
+        <img
+          id="loading"
+          src="https://i.pinimg.com/originals/4e/e9/c7/4ee9c7420c4231bc38ababc9c088bf93.gif"
+          alt=""
+        />
+        <p id="processing-text">Your food is making....</p>
+        <p id="guide">Your order will be visible here</p>
+      </div>
+    </div>
+  </body>
+  <script>
+    let foodArray = [
+      {
+        name: "McNuggets",
+        url: "https://s7d1.scene7.com/is/image/mcdonalds/t-mcdonalds-Chicken-McNuggets-4pc-1:product-header-desktop?wid=829&hei=455&dpr=off",
+        price: "340.45",
+        checkbox: false,
+      },
+      {
+        name: "Fries",
+        url: "https://s7d1.scene7.com/is/image/mcdonalds/t-mcdonalds-fries-small:product-header-desktop?wid=830&hei=456&dpr=off",
+        price: "117.95",
+        checkbox: false,
+      },
+      {
+        name: "Coffee",
+        url: "https://s7d1.scene7.com/is/image/mcdonalds/t-mcdonalds-Premium-Roast-Iced-Coffee-Medium:product-header-desktop?wid=830&hei=458&dpr=off",
+        price: "175.99",
+        checkbox: false,
+      },
+      {
+        name: "Sausage",
+        url: "https://s7d1.scene7.com/is/image/mcdonalds/t-mcdonalds-Sausage-Burrito-1:product-header-desktop?wid=829&hei=455&dpr=off",
+        price: "110.40",
+        checkbox: false,
+      },
+      {
+        name: "McFlurry",
+        url: "https://s7d1.scene7.com/is/image/mcdonalds/Header_ChocolatePretzelMcFlurry_v8_832x472:product-header-desktop?wid=830&hei=458&dpr=off",
+        price: "280.60",
+        checkbox: false,
+      },
+      {
+        name: "Vanilla Cone",
+        url: "https://s7d1.scene7.com/is/image/mcdonalds/t-mcdonalds-Vanilla-Reduced-Fat-Ice-Cream-Cone:product-header-desktop?wid=830&hei=456&dpr=off",
+        price: "160.80",
+        checkbox: false,
+      },
+      {
+        name: "Apple Pie",
+        url: "https://s7d1.scene7.com/is/image/mcdonalds/t-mcdonalds-Baked-Hot-Apple-Pie-1:product-header-desktop?wid=829&hei=455&dpr=off",
+        price: "120.75",
+        checkbox: false,
+      },
+      {
+        name: "Oatmeal",
+        url: "https://s7d1.scene7.com/is/image/mcdonalds/t-mcdonalds-Fruit-Maple-Oatmeal-1:product-header-desktop?wid=829&hei=455&dpr=off",
+        price: "145.99",
+        checkbox: false,
+      },
+    ];
+
+    localStorage.setItem("foods", JSON.stringify(foodArray));
+    let foodArrayLS = JSON.parse(localStorage.getItem("foods")) || [];
+    let product_list = document.getElementById("product-list");
+
+    displayProduct(foodArrayLS);
+    function displayProduct(data) {
+      product_list.innerHTML = "";
+      data.forEach((element, index) => {
+        let card = document.createElement("div");
+        card.addEventListener("click", function () {
+          clickFunction(element, index);
+        });
+        card.setAttribute("class", "card");
+
+        let checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.setAttribute("id", "checked");
+        if (element.checkbox == true) {
+          checkbox.checked = true;
+        } else {
+          checkbox.checked = false;
+        }
+
+        let img = document.createElement("img");
+        img.src = element.url;
+
+        let title = document.createElement("h3");
+        title.innerText = element.name;
+
+        let price = document.createElement("p");
+        price.innerText = `₹${element.price}`;
+
+        card.append(checkbox, img, title, price);
+        product_list.append(card);
+      });
+    }
+
+    function clickFunction(data, index) {
+      let ans = data.checkbox;
+      if (ans == false) {
+        data.checkbox = true;
+        displayProduct(foodArrayLS);
+        localStorage.setItem("foods", JSON.stringify(foodArrayLS));
+        fetchSelectStat(foodArrayLS);
+      } else {
+        data.checkbox = false;
+        displayProduct(foodArrayLS);
+        localStorage.setItem("foods", JSON.stringify(foodArrayLS));
+      }
+    }
+
+    let select_stat = false;
+    function fetchSelectStat(data) {
+      data.filter(function (data) {
+        if (data.checkbox == true) {
+          select_stat = true;
+        }
+      });
+    }
+
+    let order_food = document.getElementById("order-food");
+    let pName = document.getElementById("name");
+    order_food.addEventListener("click", function () {
+      if (order_food.innerText == "Order Food" && select_stat == false) {
+        alert("Please select a product");
+      } else if (order_food.innerText == "Order Food" && select_stat) {
+        order_food.innerText = "Reset";
+        let name = pName.value;
+        localStorage.setItem("order-pName", name);
+        orderFoodFunc();
+      } else if (order_food.innerText == "Reset") {
+        order_food.innerText = "Order Food";
+        window.location.reload();
+        pName.value = "";
+      }
+    });
+
+    let loading_img = document.getElementById("loading");
+    let processing_text = document.getElementById("processing-text");
+    let guid_text = document.getElementById("guide");
+
+    function orderFoodFunc() {
+      check(foodArrayLS);
+      guid_text.setAttribute("id", "display-none");
+      loading_img.setAttribute("id", "show-loading");
+      processing_text.setAttribute("id", "show-processing-text");
+    }
+
+    let random_time = Math.floor(Math.random() * 10);
+    let time = 0;
+    if (random_time > 3) {
+      time = random_time;
+    }
+    let response = new Promise(function (resolve, reject) {
+      setTimeout(function () {
+        resolve("Oder received");
+      }, time * 1000);
+    });
+
+    async function check() {
+      try {
+        let res = await response;
+        if (res) {
+          loading_img.setAttribute("id", "display-none");
+          processing_text.setAttribute("id", "display-none");
+          let ans = foodArrayLS.filter(function (food) {
+            if (food.checkbox === true) {
+              return food;
+            }
+          });
+          displayOrder(ans);
+          buttonDisplay();
+          localStorage.setItem("order-status", true);
+        }
+      } catch (e) {}
+    }
+
+    let order_list = document.getElementById("order-list");
+    function displayOrder(ans) {
+      let order_ready = document.createElement("div");
+      order_ready.setAttribute("id", "order-ready");
+
+      let person_name = document.createElement("p");
+      let getName = localStorage.getItem("order-pName") || false;
+      if (getName) {
+        person_name.innerText = `${getName}, your order is ready`;
+      } else {
+        person_name.innerText = `Your order is ready`;
+      }
+
+      let orderid = Math.floor(Math.random() * 10000);
+      let order_id = document.createElement("p");
+      order_id.innerText = `Order ID: #M${orderid}`;
+
+      order_ready.append(person_name, order_id);
+      order_list.append(order_ready);
+
+      let total = 0;
+      ans.forEach(function (food) {
+        let card = document.createElement("div");
+        card.setAttribute("id", "order-card");
+
+        let img = document.createElement("img");
+        img.src = food.url;
+        img.setAttribute("id", "order-img");
+
+        let name = document.createElement("h4");
+        name.innerText = food.name;
+
+        let price = document.createElement("h5");
+        price.innerText = `₹${food.price}`;
+        total += +food.price;
+
+        card.append(img, name, price);
+        order_list.append(card);
+      });
+
+      let total_line = document.createElement("p");
+      total = total.toFixed(2);
+      total_line.innerText = `Total : ₹${total}`;
+
+      total_line.setAttribute("id", "total-line");
+      order_list.append(total_line);
+    }
+  </script>
+</html>

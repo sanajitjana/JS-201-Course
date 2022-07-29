@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Throw Dice (23-06-2022) - Sanajit Jana (fw19_0513)</title>
+    <style>
+      .container {
+        width: 400px;
+        margin: auto;
+        padding: 20px;
+        margin-top: 150px;
+        border-radius: 10px;
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-family: sans-serif;
+        position: relative;
+      }
+      h1 {
+        margin-bottom: 50px;
+        color: rgb(0, 111, 111);
+      }
+      #winner {
+        margin: auto;
+        width: 170px;
+        height: 50px;
+        background-color: grey;
+        color: white;
+        border-radius: 5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+      .row {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 30px;
+        gap: 20px;
+      }
+      .row > div {
+        width: 100px;
+        height: 50px;
+        background-color: grey;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        border-radius: 5px;
+      }
+      #roll {
+        padding: 10px 20px;
+        border-radius: 5px;
+        border-color: transparent;
+        border-color: rgb(0, 111, 111);
+        font-weight: 600;
+        margin-bottom: 20px;
+      }
+      #roll:hover {
+        cursor: pointer;
+        background-color: rgb(0, 111, 111);
+        border-color: transparent;
+        font-weight: 600;
+        color: white;
+      }
+      h6 {
+        margin-bottom: 0;
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+      }
+      a {
+        text-decoration: none;
+        color: teal;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      .teal {
+        background-color: teal !important;
+      }
+      .green {
+        background-color: green !important;
+      }
+      .yellow {
+        background-color: yellow !important;
+        color: black !important;
+      }
+      .red {
+        background-color: red !important;
+      }
+      .blue {
+        background-color: blue !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Throw Dice Game</h1>
+      <div id="winner">Winner</div>
+      <div class="row">
+        <div id="member-1">Member A</div>
+        <div id="member-2">Member B</div>
+        <div id="member-3">Member C</div>
+      </div>
+      <button id="roll">ROLL THE DICE</button>
+      <h6>
+        <a href="https://sanajitjana.github.io/" target="_blank">
+          &copy; sanajitjana</a
+        >
+      </h6>
+    </div>
+  </body>
+  <script>
+    let buttonClick = document
+      .getElementById("roll")
+      .addEventListener("click", buttonClickFunction);
+    function buttonClickFunction() {
+      let dice1Value = Math.floor(Math.random() * 6);
+      let dice2Value = Math.floor(Math.random() * 6);
+      let dice3Value = Math.floor(Math.random() * 6);
+
+      let member1 = document.getElementById("member-1");
+      let member1Text = member1.innerText;
+      let member2 = document.getElementById("member-2");
+      let member2Text = member2.innerText;
+      let member3 = document.getElementById("member-3");
+      let member3Text = member3.innerText;
+
+      let maxVal = Math.max(dice1Value, dice2Value, dice3Value);
+      let minVal = Math.min(dice1Value, dice2Value, dice3Value);
+      let middleVal = 0;
+      if (maxVal == dice1Value && minVal == dice2Value) middleVal = dice2Value;
+      if (maxVal == dice2Value && minVal == dice3Value) middleVal = dice1Value;
+      if (maxVal == dice1Value && minVal == dice3Value) middleVal = dice2Value;
+
+      member1.innerText = dice1Value + 1;
+      member2.innerText = dice2Value + 1;
+      member3.innerText = dice3Value + 1;
+
+      checkResult();
+    }
+
+    function checkResult() {
+      let member1 = document.getElementById("member-1");
+      let member2 = document.getElementById("member-2");
+      let member3 = document.getElementById("member-3");
+      let setWinner = document.getElementById("winner");
+      setWinner.setAttribute("class", "teal");
+
+      //   if first box is greater
+      if (
+        member1.innerText > member2.innerText &&
+        member1.innerText > member3.innerText
+      ) {
+        member1.setAttribute("class", "green");
+        setWinner.innerText = "Winner - Member A";
+
+        if (member2.innerText > member3.innerText) {
+          member2.setAttribute("class", "yellow");
+          member3.setAttribute("class", "red");
+        } else if (member3.innerText > member2.innerText) {
+          member3.setAttribute("class", "yellow");
+          member2.setAttribute("class", "red");
+        } else {
+          member2.setAttribute("class", "blue");
+          member3.setAttribute("class", "blue");
+        }
+      } else if (
+        member1.innerText == member2.innerText &&
+        member1.innerText > member3.innerText
+      ) {
+        member1.setAttribute("class", "blue");
+        member2.setAttribute("class", "blue");
+        member3.setAttribute("class", "yellow");
+        setWinner.innerText = "Draw";
+      } else if (
+        member1.innerText == member3.innerText &&
+        member1.innerText > member2.innerText
+      ) {
+        member1.setAttribute("class", "blue");
+        member3.setAttribute("class", "blue");
+        member2.setAttribute("class", "yellow");
+        setWinner.innerText = "Draw";
+      }
+
+      //if second box is greater
+      else if (
+        member2.innerText > member1.innerText &&
+        member2.innerText > member3.innerText
+      ) {
+        member2.setAttribute("class", "green");
+        setWinner.innerText = "Winner - Member B";
+
+        if (member1.innerText > member3.innerText) {
+          member1.setAttribute("class", "yellow");
+          member3.setAttribute("class", "red");
+        } else if (member3.innerText > member1.innerText) {
+          member3.setAttribute("class", "yellow");
+          member1.setAttribute("class", "red");
+        } else {
+          member1.setAttribute("class", "blue");
+          member3.setAttribute("class", "blue");
+        }
+      } else if (
+        member2.innerText == member1.innerText &&
+        member2.innerText > member3.innerText
+      ) {
+        member2.setAttribute("class", "blue");
+        member1.setAttribute("class", "blue");
+        member3.setAttribute("class", "yellow");
+        setWinner.innerText = "Draw";
+      } else if (
+        member2.innerText == member3.innerText &&
+        member2.innerText > member1.innerText
+      ) {
+        member2.setAttribute("class", "blue");
+        member3.setAttribute("class", "blue");
+        member1.setAttribute("class", "yellow");
+        setWinner.innerText = "Draw";
+      }
+
+      //   if third box is greater
+      else if (
+        member3.innerText > member1.innerText &&
+        member3.innerText > member2.innerText
+      ) {
+        member3.setAttribute("class", "green");
+        setWinner.innerText = "Winner - Member C";
+
+        if (member1.innerText > member2.innerText) {
+          member1.setAttribute("class", "yellow");
+          member2.setAttribute("class", "red");
+        } else if (member2.innerText > member1.innerText) {
+          member2.setAttribute("class", "yellow");
+          member1.setAttribute("class", "red");
+        } else {
+          member1.setAttribute("class", "blue");
+          member2.setAttribute("class", "blue");
+        }
+      } else if (
+        member3.innerText == member1.innerText &&
+        member3.innerText > member2.innerText
+      ) {
+        member3.setAttribute("class", "blue");
+        member1.setAttribute("class", "blue");
+        member2.setAttribute("class", "yellow");
+        setWinner.innerText = "Draw";
+      } else if (
+        member3.innerText == member2.innerText &&
+        member3.innerText > member1.innerText
+      ) {
+        member3.setAttribute("class", "blue");
+        member2.setAttribute("class", "blue");
+        member1.setAttribute("class", "yellow");
+        setWinner.innerText = "Draw";
+      }
+
+      //if all is equal
+      else if (
+        member1.innerText == member2.innerText &&
+        member2.innerText == member3.innerText
+      ) {
+        member1.setAttribute("class", "blue");
+        member2.setAttribute("class", "blue");
+        member3.setAttribute("class", "blue");
+        setWinner.innerText = "Draw";
+      }
+    }
+  </script>
+</html>

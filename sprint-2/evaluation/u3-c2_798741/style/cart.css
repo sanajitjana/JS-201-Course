@@ -1,0 +1,41 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  text-align: center;
+}
+
+#cart {
+  width: 90%;
+  margin: auto;
+  margin-top: 50px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+#card {
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+#card > img {
+  width: 100%;
+}
+h3,
+h4 {
+  padding: 0px 15px;
+}
+button {
+  margin: 0px 0px 20px 15px;
+}
+
+h2 {
+  text-align: center;
+}
+#checkout {
+  padding: 10px 25px;
+  background-color: #1f2937;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}

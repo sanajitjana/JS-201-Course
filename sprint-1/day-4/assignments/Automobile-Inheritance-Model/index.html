@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Automobile Inheritance Model (24-06-2022) - Sanajit Jana (fw19_0513)
+    </title>
+  </head>
+  <body></body>
+  <script>
+    // Using object.create()
+    let blueprintModel = {
+      brand: "TATA",
+      type: "Four Wheeler",
+      comfort: "Yes",
+      service: "Yes",
+    };
+    let p1 = Object.create(blueprintModel);
+    p1.name = "Tata Nexon";
+    p1.price = "7.54 Lakh";
+    p1.color = "Grey";
+    console.log(p1);
+
+    // Using constructor functions().
+    function tataProducts(n, p, c, b, s, t, com) {
+      this.name = n;
+      this.price = p;
+      this.color = c;
+      this.brand = b;
+      this.service = s;
+      this.type = t;
+      this.comfort = com;
+    }
+    let p2 = new tataProducts(
+      "Tata Punch",
+      "5.83 Lakh",
+      "Blue",
+      p1.brand,
+      p1.type,
+      p1.comfort,
+      p1.service
+    );
+    console.log(p2);
+  </script>
+</html>

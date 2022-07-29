@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hotstar III (01-07-2022) - Sanajit Jana (fw19_0513)</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+        background-color: #fcfefc;
+      }
+      #navbar {
+        width: 100%;
+        margin: auto;
+        display: flex;
+        justify-content: space-between;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        align-items: center;
+        position: fixed;
+        background-color: #131a27;
+        z-index: 1;
+      }
+      #logo img {
+        width: 150px;
+        margin-left: 50px;
+      }
+      #menus {
+        display: flex;
+        justify-content: flex-end;
+        padding: 0px 50px;
+      }
+      #menus > a {
+        margin-left: 10px;
+        text-decoration: none;
+        padding: 0px 15px;
+        background-color: #131a27;
+        color: white;
+        border: 2px solid transparent;
+      }
+      #menus > a:hover {
+        border: 2px solid #131a27;
+        background-color: white;
+        color: #131a27;
+      }
+      #slideshow {
+        width: 100%;
+        margin: auto;
+        display: flex;
+        justify-content: center;
+      }
+      #slider {
+        width: 100%;
+        height: 50vh;
+        object-fit: cover;
+      }
+      #sort-buttons {
+        width: 95%;
+        margin: auto;
+        display: flex;
+        justify-content: right;
+      }
+      select {
+        padding: 5px 10px;
+        border: 2px solid #131a27;
+        font-size: 14px;
+        background-color: #131a27;
+        color: white;
+        margin-right: 10px;
+      }
+      select:hover {
+        background-color: transparent;
+        color: #131a27;
+      }
+      #movies {
+        width: 95%;
+        margin: auto;
+        margin-top: 20px;
+        margin-bottom: 50px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: auto;
+        gap: 30px;
+        background-color: white;
+      }
+      #movies > div {
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+        background-color: white;
+      }
+      #movie-img {
+        width: 100%;
+      }
+      #movies h2,
+      #movies h3,
+      #movies h4 {
+        padding: 0px 20px;
+      }
+      #search-box {
+        width: 450px;
+        height: 28px;
+        padding: 0px 10px;
+        outline: 0;
+        border: 0;
+      }
+      #display-none {
+        display: none;
+      }
+      #display-block {
+        display: block;
+      }
+      #not-found {
+        display: flex;
+        justify-content: center;
+        margin-top: 30px;
+      }
+      #not-found img {
+        width: 700px;
+      }
+      #recomemded {
+        position: absolute;
+        top: 0px;
+        border: none;
+        padding: 10px;
+        background-color: #131a27;
+        color: white;
+      }
+      #recomemded:hover {
+        background-color: #131a27;
+        color: white;
+        cursor: default;
+      }
+      #result {
+        width: 450px;
+        margin-top: 10px;
+        padding: 0px 10px;
+        max-height: 450px;
+        overflow-y: auto;
+        background-color: #0c111b;
+        position: fixed;
+        z-index: 1;
+        margin-top: 50px;
+        margin-left: 12px;
+        display: none;
+      }
+      #suggestion {
+        width: 100%;
+        margin: auto;
+        display: flex;
+        justify-content: center;
+      }
+      #row {
+        display: flex;
+        color: white;
+        background-color: #192133;
+        margin-bottom: 10px;
+      }
+      #row:hover {
+        cursor: pointer;
+        box-shadow: rgba(65, 103, 191, 0.403) 1.95px 1.95px 2.6px;
+      }
+      #row img {
+        width: 156px;
+        min-width: 156px;
+        object-fit: cover;
+        height: 88px;
+        max-height: 88px;
+        display: inline-block;
+        text-transform: none;
+        overflow: hidden;
+        border-radius: 3px 0 0 3px;
+      }
+      #row p {
+        padding: 0px 10px;
+        font-size: 16px;
+        font-family: Roboto, HelveticaNeue-Light, sans-serif;
+        font-weight: 400;
+        color: rgba(255, 255, 255, 0.8);
+      }
+      #row span {
+        font-size: 12px;
+        font-family: Roboto, HelveticaNeue-Light, sans-serif;
+        font-weight: 400;
+        color: rgba(255, 255, 255, 0.8);
+      }
+      .display-none {
+        display: none;
+      }
+      .display-block {
+        display: block !important;
+      }
+      #movie-details-bar {
+        width: 95%;
+        margin: auto;
+        margin-top: 50px;
+        margin-bottom: 50px;
+        background-color: #131a27;
+        color: white;
+        display: none;
+      }
+      #movie-details {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        justify-content: space-between;
+      }
+      #movie-details > div:first-child {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0px 50px;
+      }
+      #movie-details > div:first-child > h4 {
+        text-transform: uppercase;
+        font-family: Roboto, HelveticaNeue-Light, sans-serif;
+        font-weight: 600;
+        font-size: 11px;
+        line-height: 16px;
+        color: #e5bb44;
+      }
+      #movie-details > div:first-child > h1 {
+        font-family: Roboto, HelveticaNeue-Light, sans-serif;
+        font-weight: 600;
+        font-size: 32px;
+        margin-top: -5px;
+      }
+      #movie-details > div:first-child > h3 {
+        font-family: Roboto, HelveticaNeue-Light, sans-serif;
+        font-weight: 400;
+        font-size: 18px;
+        margin-top: -5px;
+        color: rgba(229, 226, 226, 0.81);
+      }
+      #movie-details > div:first-child > p {
+        font-family: Roboto, HelveticaNeue-Light, sans-serif;
+        font-weight: 400;
+        font-size: 14px;
+        color: rgba(229, 226, 226, 0.81);
+        line-height: 20px;
+      }
+      #movie-details > div:last-child {
+        display: flex;
+        justify-content: flex-end;
+      }
+      #movie-details > div:last-child > img {
+        min-width: 700px;
+        max-width: 700px;
+        min-height: 450px;
+        max-height: 450px;
+        object-fit: cover;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- navbar -->
+    <div id="navbar">
+      <div id="logo">
+        <a href="index.html">
+          <img
+            src="https://secure-media.hotstarext.com/web-assets/prod/images/brand-logos/disney-hotstar-logo-dark.svg"
+            alt=""
+          />
+        </a>
+      </div>
+      <div>
+        <input
+          type="text"
+          oninput="debouncing(main, 500)"
+          id="search-box"
+          placeholder="Search movie here..."
+        />
+      </div>
+      <div id="menus">
+        <a href="index.html"><p>Home</p></a>
+        <a href="trending.html"><p>Trending Movies</p></a>
+      </div>
+    </div>
+
+    <div id="suggestion">
+      <div id="result"></div>
+    </div>
+
+    <!-- slider -->
+    <div id="slideshow"></div>
+
+    <!-- if search result not found -->
+    <div id="not-found"></div>
+
+    <!-- filter and sorting -->
+    <div id="sort-buttons">
+      <select id="sort-by-year">
+        <option id="first-sort" value="">Release date</option>
+        <option value="new">New movies first</option>
+        <option value="old">Old movies first</option>
+      </select>
+      <select id="filter-by-year">
+        <option value="">Filter by year</option>
+        <option value="2021">Movie only after 2021</option>
+        <option value="2010">Movie between 2010-2021</option>
+        <option value="2000">Movie between 2000-2010</option>
+        <option value="1900">Movie before 2000</option>
+      </select>
+    </div>
+
+    <!-- display movies -->
+    <div id="movies"></div>
+
+    <!-- movie-details -->
+    <div id="movie-details-bar">
+      <!-- <div id="movie-details"></div> -->
+      <div id="movie-details">
+        <div>
+          <h4>movie</h4>
+          <h1>Thor: Ragnarok</h1>
+          <h3>Release year: 2017</h3>
+          <h3>ID: tt3501632</h3>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis
+            explicabo accusamus voluptatem, minus debitis, pariatur suscipit
+            itaque repellendus dolor aliquid dolorem. Modi hic error blanditiis
+            dolores ullam perferendis, ducimus impedit?
+          </p>
+        </div>
+        <div>
+          <img
+            src="https://m.media-amazon.com/images/M/MV5BMjMyNDkzMzI1OF5BMl5BanBnXkFtZTgwODcxODg5MjI@._V1_SX300.jpg"
+          />
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    //slider array
+    let slideshowArray = [
+      "https://wallpaperset.com/w/full/0/3/4/484251.jpg",
+      "https://wallpaperset.com/w/full/a/e/3/27246.jpg",
+      "https://wallpaperset.com/w/full/2/9/9/27248.jpg",
+      "https://wallpaperset.com/w/full/7/1/d/27252.jpg",
+      "https://wallpaperset.com/w/full/8/1/b/27293.jpg",
+    ];
+
+    //slideshow array
+    let moviesArray = [
+      {
+        Title: "Doctor Strange",
+        Year: "2017",
+        Poster:
+          "https://img1.hotstarext.com/image/upload/f_auto,t_web_vl_3x/sources/r1/cms/prod/9948/1279948-v-cc9471178e40",
+      },
+      {
+        Title: "Masoom",
+        Year: "2020",
+        Poster:
+          "https://img1.hotstarext.com/image/upload/f_auto,t_web_vl_3x/sources/r1/cms/prod/2249/1282249-v-901a544faba4",
+      },
+      {
+        Title: "Twenty One",
+        Year: "2022",
+        Poster:
+          "https://img1.hotstarext.com/image/upload/f_auto,t_web_vl_3x/sources/r1/cms/prod/6273/1276273-v-abe43b644aa0",
+      },
+      {
+        Title: "KRK",
+        Year: "2023",
+        Poster:
+          "https://img1.hotstarext.com/image/upload/f_auto,t_web_vl_3x/sources/r1/cms/prod/3451/1253451-v-9970655f39c7",
+      },
+      {
+        Title: "Baaghi-3",
+        Year: "2020",
+        Poster:
+          "https://img1.hotstarext.com/image/upload/f_auto,t_web_vl_3x/sources/r1/cms/prod/6536/846536-v",
+      },
+      {
+        Title: "Tanhaji",
+        Year: "2020",
+        Poster:
+          "https://img1.hotstarext.com/image/upload/f_auto,t_web_vl_1_5x/sources/r1/cms/prod/7676/647676-v",
+      },
+      {
+        Title: "Badhaai Ho",
+        Year: "2018",
+        Poster:
+          "https://img1.hotstarext.com/image/upload/f_auto,t_web_vl_1_5x/sources/r1/cms/prod/7309/177309-v",
+      },
+      {
+        Title: "Bahubali 2",
+        Year: "2017",
+        Poster:
+          "https://img1.hotstarext.com/image/upload/f_auto,t_web_vl_3x/sources/r1/cms/prod/5085/635085-v",
+      },
+      {
+        Title: "KGF",
+        Year: "2018",
+        Poster:
+          "https://img1.hotstarext.com/image/upload/f_auto,t_web_vl_1_5x/sources/r1/cms/prod/1805/1281805-v-aa8282c16ef4",
+      },
+    ];
+
+    //store all image to LS
+    localStorage.setItem("movies", JSON.stringify(moviesArray));
+    let moviesArrayLS = JSON.parse(localStorage.getItem("movies")) || [];
+
+    let container = document.querySelector("#movies");
+    let slideshowContainer = document.getElementById("slideshow");
+    let sort_buttons = document.getElementById("sort-buttons");
+    let not_found = document.getElementById("not-found");
+    let search_data = document.getElementById("search-box");
+
+    document
+      .getElementById("sort-by-year")
+      .addEventListener("change", function () {
+        releaseDateSort();
+      });
+
+    document
+      .getElementById("filter-by-year")
+      .addEventListener("change", function () {
+        filterByYear();
+      });
+
+    //display slideshow
+    displaySlideShow(slideshowArray);
+    let i = 0;
+    function displaySlideShow(data) {
+      setInterval(function () {
+        // create a img and set data img_url inside it
+        let img = document.createElement("img");
+        img.setAttribute("id", "slider");
+        img.src = data[i];
+        i++;
+
+        //append
+        slideshowContainer.innerHTML = "";
+        slideshowContainer.append(img);
+
+        //after ending dataArray will start again from index 0
+        if (i == data.length) {
+          i = 0;
+        }
+      }, 1000);
+    }
+
+    let allData = null;
+    //api fetch
+    async function movieFetch(search) {
+      try {
+        let result = await fetch(
+          `https://www.omdbapi.com/?s=${search}&apikey=b5e9aeaf`
+        );
+        let data = await result.json();
+        if (data.Search == undefined) {
+          let img = document.createElement("img");
+          img.src = "https://c.tenor.com/unvXyxtdn3oAAAAC/no-result.gif";
+
+          slideshowContainer.setAttribute("id", "display-none");
+          sort_buttons.setAttribute("id", "display-none");
+          container.innerHTML = "";
+          not_found.innerHTML = "";
+          not_found.append(img);
+        } else {
+          slideshowContainer.setAttribute("id", "display-block");
+          not_found.innerHTML = "";
+          displayMovies(data.Search);
+          allData = data.Search;
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    }
+
+    //display movies list
+    displayMovies(moviesArrayLS);
+    function displayMovies(data) {
+      container.innerHTML = "";
+      if (!data) return;
+      data.forEach(function (movie) {
+        let card = document.createElement("div");
+        card.style.position = "relative";
+
+        let img = document.createElement("img");
+        img.setAttribute("id", "movie-img");
+        if (movie.Poster) img.src = movie.Poster;
+
+        let name = document.createElement("h2");
+        name.innerText = movie.Title;
+
+        let release_date = document.createElement("h3");
+        release_date.innerText = `Release in ${movie.Year}`;
+
+        let IMDb_rating = document.createElement("h4");
+        let random_rating = Math.floor(Math.random() * 10);
+        IMDb_rating.innerText = `Rating: ${random_rating + 1}`;
+
+        recomemded = document.createElement("button");
+        recomemded.setAttribute("id", "recomemded");
+        if (random_rating + 1 > 8.5) {
+          recomemded.innerText = "Recommended";
+        } else {
+          recomemded.setAttribute("id", "display-none");
+        }
+
+        card.append(img, name, release_date, recomemded, IMDb_rating);
+        container.append(card);
+      });
+    }
+
+    // Release Date Sorting
+    function releaseDateSort() {
+      let sort_by_year = document.getElementById("sort-by-year").value;
+      if (allData) {
+        allData.sort((f, s) => {
+          let a = f.Year.split("–");
+          let b = s.Year.split("–");
+          if (sort_by_year == "old") {
+            return a - b;
+          } else if (sort_by_year == "new") {
+            return b - a;
+          }
+        });
+        displayMovies(allData);
+      } else {
+        let data = moviesArrayLS.sort((a, b) => {
+          if (sort_by_year == "old") {
+            return a.Year - b.Year;
+          } else if (sort_by_year == "new") {
+            return b.Year - a.Year;
+          }
+        });
+        displayMovies(data);
+      }
+    }
+
+    // Filter by Year
+    function filterByYear() {
+      let filter_by_year = document.getElementById("filter-by-year").value;
+      if (allData) {
+        let res = allData.filter((ele) => {
+          let a = ele.Year.split("–");
+          let val = a[0];
+          if (filter_by_year == "") {
+            return val;
+          } else if (filter_by_year == "2021") {
+            return val >= 2021;
+          } else if (filter_by_year == "2010") {
+            if (val <= 2021 && val >= 2010) {
+              return val;
+            }
+          } else if (filter_by_year == "2000") {
+            if (val <= 2010 && val >= 2000) {
+              return val;
+            }
+          } else if (filter_by_year == "1900") {
+            if (val <= 2000) {
+              return val;
+            }
+          }
+        });
+        displayMovies(res);
+      } else {
+        let filterData = moviesArrayLS.filter((ele) => {
+          if (filter_by_year == "") {
+            return ele.Year;
+          } else if (filter_by_year == "2021") {
+            return ele.Year >= 2021;
+          } else if (filter_by_year == "2010") {
+            if (ele.Year <= 2021 && ele.Year >= 2010) {
+              return ele.Year;
+            }
+          } else if (filter_by_year == "2000") {
+            if (ele.Year <= 2010 && ele.Year >= 2000) {
+              return ele.Year;
+            }
+          } else if (filter_by_year == "1900") {
+            if (ele.Year <= 2000) {
+              return ele.Year;
+            }
+          }
+        });
+        displayMovies(filterData);
+      }
+    }
+
+    let id;
+    async function getData() {
+      let search = document.getElementById("search-box").value;
+      let url = `https://www.omdbapi.com/?s=${search}&apikey=b5e9aeaf`;
+      let res = await fetch(url);
+      let data = await res.json();
+      return data.Search;
+    }
+
+    async function main() {
+      let data = await getData();
+      displaySugge(data);
+    }
+
+    function displaySugge(data) {
+      let result = document.getElementById("result");
+      result.setAttribute("class", "display-block");
+      result.innerHTML = "";
+
+      if (
+        data == undefined &&
+        document.getElementById("search-box").value == ""
+      ) {
+        result.setAttribute("class", "display-none");
+        return;
+      }
+
+      if (data == undefined) {
+        result.setAttribute("class", "display-block");
+        let row = document.createElement("div");
+
+        let not_found = document.createElement("p");
+        not_found.setAttribute("class", "not-found");
+        not_found.innerText = "No results found. Try again...";
+        not_found.style.color = "white";
+
+        row.append(not_found);
+        result.append(row);
+      }
+
+      if (data) {
+        data.forEach((ele) => {
+          let row = document.createElement("div");
+          row.setAttribute("id", "row");
+
+          img = document.createElement("img");
+          img.src = ele.Poster;
+
+          let text = document.createElement("p");
+          text.innerHTML = `${ele.Title}<br/><span>Year: ${ele.Year}</span>`;
+
+          row.append(img, text);
+          result.append(row);
+
+          row.addEventListener("click", function (e) {
+            movieDetails(ele);
+          });
+        });
+      }
+    }
+
+    search_data.addEventListener("focus", function (events) {
+      document.getElementById("result").setAttribute("class", "display-block");
+    });
+
+    function movieDetails(details) {
+      document.getElementById("search-box").value = "";
+      document.getElementById("result").innerHTML = "";
+      document.getElementById("slideshow").style.display = "none";
+      document.getElementById("sort-buttons").style.display = "none";
+      document.getElementById("movies").style.display = "none";
+
+      let movie_details_bar = document.getElementById("movie-details-bar");
+      movie_details_bar.setAttribute("class", "display-block");
+      let movie_details = document.getElementById("movie-details");
+
+      let divText = document.createElement("div");
+      let divImg = document.createElement("div");
+
+      let h4 = document.createElement("h4");
+      h4.innerText = details.Type;
+
+      let title = document.createElement("h1");
+      title.innerText = details.Title;
+
+      let year = document.createElement("h3");
+      year.innerText = `Release year: ${details.Year}`;
+
+      let imdbId = document.createElement("h3");
+      imdbId.innerText = `ID: ${details.imdbID}`;
+
+      let description = document.createElement("p");
+      description.innerText =
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis explicabo accusamus voluptatem, minus debitis, pariatur suscipit itaque repellendus dolor aliquid dolorem. Modi hic error blanditiis dolores ullam perferendis, ducimus impedit?";
+
+      divText.append(h4, title, year, imdbId, description);
+
+      let img = document.createElement("img");
+      img.src = details.Poster;
+      divImg.append(img);
+
+      movie_details.innerHTML = "";
+      movie_details.append(divText, divImg);
+
+      // {Title: 'Team Thor', Year: '2016', imdbID: 'tt6016776', Type: 'movie', Poster: 'https://m.media-amazon.com/images/M/MV5BZmEyODRkYm…WY5MjJjXkEyXkFqcGdeQXVyNTE1NjY5Mg@@._V1_SX300.jpg'}
+    }
+
+    function debouncing(func, delay) {
+      if (id) {
+        clearTimeout(id);
+      }
+      id = setTimeout(function () {
+        func();
+      }, delay);
+    }
+  </script>
+</html>

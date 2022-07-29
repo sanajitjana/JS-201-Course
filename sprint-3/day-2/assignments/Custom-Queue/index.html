@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Custom Queue (06-07-2022) - Sanajit Jana (fw19_0513)</title>
+    <style>
+      body {
+        font-family: sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Custom Queue using class constructor</h1>
+  </body>
+  <script>
+    class CustomQueue {
+      constructor() {
+        this.queue = [];
+        this.length = 0;
+      }
+
+      length() {
+        return this.queue.length;
+      }
+
+      enQueue(x) {
+        this.queue.push(x);
+        this.length++;
+        return this.queue;
+      }
+
+      deQueue() {
+        let stack = [];
+        while (this.queue.length > 0) {
+          stack.push(this.queue.pop());
+        }
+        let temp = stack.pop();
+        while (stack.length > 0) {
+          this.queue.push(stack.pop());
+        }
+        this.length--;
+        return this.queue;
+      }
+
+      enQueueThree(...arr) {
+        arr.forEach((item) => {
+          this.queue.push(item);
+          this.length++;
+        });
+        return this.queue;
+      }
+
+      deQueueThree() {
+        if (this.queue.length == 0) {
+          return "Queue is empty";
+        } else if (this.queue.length < 3) {
+          while (this.queue.length > 0) {
+            this.queue.shift();
+            this.length--;
+          }
+        } else {
+          let i = 0;
+          while (i < 3) {
+            this.queue.shift();
+            this.length--;
+            i++;
+          }
+        }
+        return this.queue;
+      }
+    }
+
+    //create a new queue
+    let myQueue = new CustomQueue();
+
+    //enQueueThree
+    myQueue.enQueueThree(1, 2, 3);
+    console.log("enQueueThreeResult", myQueue);
+    //passed
+
+    //deQueueThree
+    myQueue.deQueueThree();
+    console.log("deQueueThreeResult", myQueue);
+    //passed
+
+    //length of queue
+    console.log("Queue length", myQueue.length);
+    //passed
+
+    // enQueue
+    myQueue.enQueue(10);
+    myQueue.enQueue(15);
+    console.log(myQueue);
+    //passed
+
+    // deQueue
+    myQueue.deQueue();
+    console.log(myQueue);
+    //passed
+  </script>
+</html>

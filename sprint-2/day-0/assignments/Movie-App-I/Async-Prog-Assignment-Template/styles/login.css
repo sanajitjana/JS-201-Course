@@ -1,0 +1,28 @@
+#login-form-div {
+  width: 400px;
+  margin: auto;
+  margin-top: 50px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  text-align: center;
+  padding: 10px 20px 20px 20px;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+}
+input {
+  padding: 10px 15px;
+  font-size: 14px;
+  margin-bottom: 15px;
+  border: 1px solid rgb(187, 187, 187);
+}
+input[type="submit"] {
+  background-color: transparent;
+  border: 2px solid black;
+}
+input[type="submit"]:hover {
+  background-color: black;
+  color: white;
+  cursor: pointer;
+}

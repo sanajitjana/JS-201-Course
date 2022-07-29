@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    class Vehicle {
+      #type;
+      #color;
+      #regNumber;
+
+      constructor(type, color, reg) {
+        this.#type = type;
+        this.#color = color;
+        this.#regNumber = reg;
+      }
+
+      get regNumber() {
+        return this.#regNumber;
+      }
+    }
+
+    // car, bike, bus
+
+    class Car extends Vehicle {
+      constructor(color, reg) {
+        super("Car", color, reg);
+      }
+    }
+
+    class Bike extends Vehicle {
+      constructor(color, reg) {
+        super("Bike", color, reg);
+      }
+    }
+
+    class Bus extends Vehicle {
+      constructor(color, reg) {
+        super("Bus", color, reg);
+      }
+    }
+
+    let p1 = new Car("Blue", "WB124578");
+    console.log(p1);
+    // console.log(p1.regNumber);
+  </script>
+</html>

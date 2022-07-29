@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Student Management System</h1>
+  </body>
+  <script>
+    // for store all stduents
+    let students = [];
+
+    class User {
+      #password;
+      constructor(name, id) {
+        this.name = name;
+        this.id = id;
+      }
+
+      //validation of username & password
+      signup(username, password) {
+        let isValidated = false;
+        isValidated =
+          this.#validUsername(username) && this.#validPassword(password);
+        if (isValidated) {
+          this.username = username;
+          this.#password = password;
+
+          console.log("User register successful");
+          students.push(this);
+        } else {
+          console.log("Please follow username and password rules");
+        }
+      }
+
+      //checking for username rules
+      #validUsername(username) {
+        return true;
+      }
+
+      // checking for password rules
+      #validPassword(password) {
+        return true;
+      }
+
+      //   login function
+      login(username, password) {
+        if (username == this.username && password == this.#password) {
+          console.log("User login successful");
+        } else {
+          console.log("Authentication failed");
+        }
+      }
+    }
+
+    class Student extends User {
+      constructor(name, id) {
+        //borrow property form user
+        super(name, id);
+        this.nameOfAssignment = 0;
+      }
+
+      submitAssignment() {
+        this.nameOfAssignment++;
+      }
+    }
+
+    class Admin extends User {
+      constructor(name, id) {
+        super(name, id);
+      }
+
+      removeStudent(id) {
+        students = students.filter((ele) => {
+          return ele.id != id;
+        });
+      }
+    }
+
+    let s1 = new Student("Sanajit", "fw19_0513");
+    s1.signup("sanajitjana", "Sanajit@789");
+    s1.login("sanajitjana", "Sanajit@789");
+    s1.submitAssignment();
+    s1.submitAssignment();
+    // console.log(s1);
+
+    let s2 = new Student("Ranjan", "fw19_0543");
+    s2.signup("ranjan", "Ranjan@789");
+    s2.login("ranjan", "Ranjan@789");
+    s2.submitAssignment();
+    // console.log(s2);
+
+    let n = new Admin("nrupul", "003");
+    n.removeStudent("fw19_0543");
+    // console.log(n);
+
+    // display student array
+    console.log(students);
+  </script>
+</html>

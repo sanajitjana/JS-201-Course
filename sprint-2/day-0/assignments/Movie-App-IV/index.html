@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movie App IV (27-06-2022) - Sanajit Jana (fw19_0513)</title>
+    <style>
+      body {
+        font-family: sans-serif;
+      }
+      #menu {
+        text-align: center;
+        margin-top: 50px;
+      }
+      #add-movies {
+        padding: 5px 10px;
+        border: 2px solid black;
+        font-size: 18px;
+        background-color: black;
+        color: white;
+      }
+      #add-movies:hover {
+        cursor: pointer;
+        background-color: transparent;
+        color: black;
+      }
+      .container {
+        width: 95%;
+        margin: auto;
+        margin-top: 50px;
+        margin-bottom: 50px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: auto;
+        gap: 30px;
+      }
+      .container > div {
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+      }
+      img {
+        width: 100%;
+      }
+      h2,
+      h3,
+      h4 {
+        padding: 0px 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container"></div>
+  </body>
+
+  <script>
+    let moviesArray = [
+      {
+        title: "Doctor Strange",
+        release_date: "2017-12-01",
+        poster_url:
+          "https://img1.hotstarext.com/image/upload/f_auto,t_web_vl_3x/sources/r1/cms/prod/9948/1279948-v-cc9471178e40",
+        rating: "5",
+      },
+      {
+        title: "Masoom",
+        release_date: "2020-06-20",
+        poster_url:
+          "https://img1.hotstarext.com/image/upload/f_auto,t_web_vl_3x/sources/r1/cms/prod/2249/1282249-v-901a544faba4",
+        rating: "4",
+      },
+      {
+        title: "Twenty One",
+        release_date: "2022-06-01",
+        poster_url:
+          "https://img1.hotstarext.com/image/upload/f_auto,t_web_vl_3x/sources/r1/cms/prod/6273/1276273-v-abe43b644aa0",
+        rating: "4",
+      },
+      {
+        title: "KRK",
+        release_date: "2023-04-14",
+        poster_url:
+          "https://img1.hotstarext.com/image/upload/f_auto,t_web_vl_3x/sources/r1/cms/prod/3451/1253451-v-9970655f39c7",
+        rating: "3",
+      },
+      {
+        title: "Baaghi-3",
+        release_date: "2020-03-04",
+        poster_url:
+          "https://img1.hotstarext.com/image/upload/f_auto,t_web_vl_3x/sources/r1/cms/prod/6536/846536-v",
+        rating: "5",
+      },
+      {
+        title: "Tanhaji",
+        release_date: "2020-11-07",
+        poster_url:
+          "https://img1.hotstarext.com/image/upload/f_auto,t_web_vl_1_5x/sources/r1/cms/prod/7676/647676-v",
+        rating: "3",
+      },
+      {
+        title: "Badhaai Ho",
+        release_date: "2018-03-06",
+        poster_url:
+          "https://img1.hotstarext.com/image/upload/f_auto,t_web_vl_1_5x/sources/r1/cms/prod/7309/177309-v",
+        rating: "4",
+      },
+      {
+        title: "Bahubali 2",
+        release_date: "2017-07-01",
+        poster_url:
+          "https://img1.hotstarext.com/image/upload/f_auto,t_web_vl_3x/sources/r1/cms/prod/5085/635085-v",
+        rating: "5",
+      },
+      {
+        title: "KGF",
+        release_date: "2018-06-06",
+        poster_url:
+          "https://img1.hotstarext.com/image/upload/f_auto,t_web_vl_1_5x/sources/r1/cms/prod/1805/1281805-v-aa8282c16ef4",
+        rating: "5",
+      },
+    ];
+
+    //store all image to LS
+    localStorage.setItem("movies", JSON.stringify(moviesArray));
+
+    //fetch images from LS
+    let moviesArrayLS = JSON.parse(localStorage.getItem("movies")) || [];
+    let container = document.getElementsByClassName("container");
+
+    //display movies list
+    displayMovies(moviesArrayLS);
+    function displayMovies(data) {
+      container[0].innerHTML = "";
+
+      data.forEach(function (movie) {
+        let card = document.createElement("div");
+
+        let img = document.createElement("img");
+        img.src = movie.poster_url;
+
+        let name = document.createElement("h2");
+        name.innerText = movie.title;
+
+        let release_date = document.createElement("h3");
+        release_date.innerText = `Release: ${movie.release_date}`;
+
+        let IMDb_rating = document.createElement("h4");
+        if (movie.rating == 5) {
+          IMDb_rating.innerText = `⭐⭐⭐⭐⭐ (${movie.rating})`;
+        } else if (movie.rating == 4) {
+          IMDb_rating.innerText = `⭐⭐⭐⭐ (${movie.rating})`;
+        } else if (movie.rating == 4) {
+          IMDb_rating.innerText = `⭐⭐⭐⭐ (${movie.rating})`;
+        } else if (movie.rating == 3) {
+          IMDb_rating.innerText = `⭐⭐⭐ (${movie.rating})`;
+        } else if (movie.rating == 2) {
+          IMDb_rating.innerText = `⭐⭐ (${movie.rating})`;
+        } else if (movie.rating == 1) {
+          IMDb_rating.innerText = `⭐ (${movie.rating})`;
+        }
+
+        card.append(img, name, release_date, IMDb_rating);
+        container[0].append(card);
+      });
+    }
+  </script>
+</html>

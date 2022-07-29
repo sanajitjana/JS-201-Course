@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hotstar III (01-07-2022) - Sanajit Jana (fw19_0513)</title>
+  </head>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+      background-color: #fcfefc;
+    }
+    #navbar {
+      width: 100%;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+      align-items: center;
+      background-color: #131a27;
+      z-index: 1;
+    }
+    #logo img {
+      width: 150px;
+      margin-left: 50px;
+    }
+    #menus {
+      display: flex;
+      justify-content: flex-end;
+      padding: 0px 50px;
+    }
+    #menus > a {
+      margin-left: 10px;
+      text-decoration: none;
+      padding: 0px 15px;
+      background-color: #131a27;
+      color: white;
+      border: 2px solid transparent;
+    }
+    #menus > a:hover {
+      border: 2px solid #131a27;
+      background-color: white;
+      color: #131a27;
+    }
+    #movies {
+      width: 95%;
+      margin: auto;
+      margin-top: 30px;
+      margin-bottom: 50px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto;
+      gap: 30px;
+      background-color: white;
+    }
+    #movies > div {
+      box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+      background-color: white;
+    }
+    #movie-img {
+      width: 100%;
+    }
+    #movies h2,
+    #movies h3,
+    #movies h4 {
+      padding: 0px 20px;
+    }
+    #search-box {
+      width: 450px;
+      height: 28px;
+      padding: 0px 10px;
+      outline: 0;
+      border: 0;
+    }
+    #display-none {
+      display: none;
+    }
+    #display-block {
+      display: block;
+    }
+    #not-found {
+      display: flex;
+      justify-content: center;
+      margin-top: 30px;
+    }
+    #not-found img {
+      width: 700px;
+    }
+    #recomemded {
+      position: absolute;
+      top: 0px;
+      border: none;
+      padding: 10px;
+      background-color: #131a27;
+      color: white;
+    }
+    #recomemded:hover {
+      background-color: #131a27;
+      color: white;
+      cursor: default;
+    }
+  </style>
+  <body onload="getData()">
+    <!-- navbar -->
+    <div id="navbar">
+      <div id="logo">
+        <a href="index.html">
+          <img
+            src="https://secure-media.hotstarext.com/web-assets/prod/images/brand-logos/disney-hotstar-logo-dark.svg"
+            alt=""
+          />
+        </a>
+      </div>
+      <div id="menus">
+        <a href="index.html"><p>Home</p></a>
+        <a href="trending.html"><p>Trending Movies</p></a>
+      </div>
+    </div>
+
+    <!-- display movies -->
+    <div id="movies"></div>
+  </body>
+  <script>
+    async function getData() {
+      let url = `https://api.themoviedb.org/3/movie/popular?api_key=6288383070b00418216705309faf5b0b&language=en-US&page=1`;
+      let res = await fetch(url);
+      let data = await res.json();
+      displayMovies(data.results);
+    }
+
+    //display movies list
+    function displayMovies(data) {
+      let container = document.querySelector("#movies");
+      container.innerHTML = "";
+
+      if (!data) return;
+
+      data.forEach(function (movie) {
+        let card = document.createElement("div");
+        card.style.position = "relative";
+
+        let img = document.createElement("img");
+        img.setAttribute("id", "movie-img");
+        if (movie.poster_path)
+          img.src = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
+
+        let name = document.createElement("h2");
+        name.innerText = movie.title;
+
+        let release_date = document.createElement("h3");
+        release_date.innerText = `Release: ${movie.release_date}`;
+
+        let IMDb_rating = document.createElement("h4");
+        IMDb_rating.innerText = `Rating: ${movie.vote_average}`;
+
+        recomemded = document.createElement("button");
+        recomemded.setAttribute("id", "recomemded");
+        if (movie.vote_average > 7) {
+          recomemded.innerText = "Recommended";
+        } else {
+          recomemded.setAttribute("id", "display-none");
+        }
+
+        card.append(img, name, release_date, recomemded, IMDb_rating);
+        container.append(card);
+      });
+    }
+  </script>
+</html>

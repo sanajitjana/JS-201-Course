@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Omdb Movie App II (30-06-2022) - Sanajit Jana (fw19_0513)</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+        background-color: #fcfefc;
+      }
+      #navbar {
+        width: 100%;
+        margin: auto;
+        display: flex;
+        justify-content: space-between;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        border: 1px solid rgb(233, 233, 233);
+        align-items: center;
+      }
+      #logo img {
+        width: 220px;
+        margin-left: 50px;
+      }
+      #menus {
+        display: flex;
+        justify-content: flex-end;
+        padding: 0px 50px;
+      }
+      #menus > a {
+        margin-left: 10px;
+        text-decoration: none;
+        padding: 0px 15px;
+        color: black;
+      }
+      #menus > a:hover {
+        background-color: black;
+        color: white;
+      }
+      #slideshow {
+        width: 100%;
+        margin: auto;
+        display: flex;
+        justify-content: center;
+      }
+      #slider {
+        width: 100%;
+        height: 50vh;
+        object-fit: cover;
+      }
+      #sort-buttons {
+        width: 95%;
+        margin: auto;
+        margin-top: 30px;
+        display: flex;
+        justify-content: center;
+      }
+      button {
+        padding: 5px 10px;
+        border: 2px solid black;
+        font-size: 14px;
+        background-color: black;
+        color: white;
+        margin-right: 10px;
+      }
+      button:hover {
+        cursor: pointer;
+        background-color: transparent;
+        color: black;
+      }
+      #movies {
+        width: 95%;
+        margin: auto;
+        margin-top: 20px;
+        margin-bottom: 50px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: auto;
+        gap: 30px;
+      }
+      #movies > div {
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+      }
+      #movie-img {
+        width: 100%;
+      }
+      h2,
+      h3,
+      h4 {
+        padding: 0px 20px;
+      }
+      #search-box {
+        width: 350px;
+        height: 28px;
+        padding: 0px 10px;
+      }
+      #display-none {
+        display: none;
+      }
+      #display-block {
+        display: block;
+      }
+      #not-found {
+        display: flex;
+        justify-content: center;
+        margin-top: 30px;
+      }
+      #not-found img {
+        width: 700px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="navbar">
+      <div id="logo">
+        <a href="index.html">
+          <img src="https://i.postimg.cc/rp4Kp9bp/movie-album.jpg" alt="" />
+        </a>
+      </div>
+      <div id="search-bar">
+        <input type="text" id="search-box" placeholder="Search movie here..." />
+        <button id="search-btn">Search</button>
+      </div>
+      <div id="menus">
+        <a href="index.html"><p>Home</p></a>
+      </div>
+    </div>
+
+    <div id="slideshow">
+      <!--Show Slideshow here-->
+    </div>
+    <div id="not-found"></div>
+    <div id="movies">
+      <!--Show list of movies here-->
+    </div>
+  </body>
+  <script>
+    let container = document.querySelector("#movies");
+    let slideshowContainer = document.getElementById("slideshow");
+    let not_found = document.getElementById("not-found");
+
+    let search_data = document.getElementById("search-box");
+    let search_btn = document.getElementById("search-btn");
+    search_btn.addEventListener("click", searchClick);
+
+    function searchClick() {
+      if (search_data.value == "") {
+        alert("Please enter a movie name");
+      } else {
+        movieFetch(search_data.value);
+      }
+    }
+    search_data.addEventListener("keypress", function (event) {
+      if (event.key === "Enter") {
+        if (search_data.value == "") {
+          alert("Please enter a movie name");
+        } else {
+          movieFetch(search_data.value);
+        }
+      }
+    });
+
+    async function movieFetch(search) {
+      try {
+        let result = await fetch(
+          `https://www.omdbapi.com/?s=${search}&apikey=b5e9aeaf`
+        );
+        let data = await result.json();
+        if (data.Search == undefined) {
+          let img = document.createElement("img");
+          img.src = "https://c.tenor.com/unvXyxtdn3oAAAAC/no-result.gif";
+
+          slideshowContainer.setAttribute("id", "display-none");
+          container.innerHTML = "";
+          not_found.innerHTML = "";
+          not_found.append(img);
+        } else {
+          slideshowContainer.setAttribute("id", "display-block");
+          not_found.innerHTML = "";
+          displayMovies(data.Search);
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    }
+
+    let slideshowArray = [
+      "https://wallpaperset.com/w/full/0/3/4/484251.jpg",
+      "https://wallpaperset.com/w/full/a/e/3/27246.jpg",
+      "https://wallpaperset.com/w/full/2/9/9/27248.jpg",
+      "https://wallpaperset.com/w/full/7/1/d/27252.jpg",
+      "https://wallpaperset.com/w/full/8/1/b/27293.jpg",
+    ];
+
+    displaySlideShow(slideshowArray);
+    let i = 0;
+    function displaySlideShow(data) {
+      setInterval(function () {
+        // create a img and set data img_url inside it
+        let img = document.createElement("img");
+        img.setAttribute("id", "slider");
+        img.src = data[i];
+        i++;
+
+        //append
+        slideshowContainer.innerHTML = "";
+        slideshowContainer.append(img);
+
+        //after ending dataArray will start again from index 0
+        if (i == data.length) {
+          i = 0;
+        }
+      }, 1000);
+    }
+
+    //slideshow
+    let moviesArray = [
+      {
+        Title: "Doctor Strange",
+        Year: "2017-12-01",
+        Poster:
+          "https://img1.hotstarext.com/image/upload/f_auto,t_web_vl_3x/sources/r1/cms/prod/9948/1279948-v-cc9471178e40",
+        rating: "5",
+      },
+      {
+        Title: "Masoom",
+        Year: "2020-06-20",
+        Poster:
+          "https://img1.hotstarext.com/image/upload/f_auto,t_web_vl_3x/sources/r1/cms/prod/2249/1282249-v-901a544faba4",
+        rating: "4",
+      },
+      {
+        Title: "Twenty One",
+        Year: "2022-06-01",
+        Poster:
+          "https://img1.hotstarext.com/image/upload/f_auto,t_web_vl_3x/sources/r1/cms/prod/6273/1276273-v-abe43b644aa0",
+        rating: "4",
+      },
+      {
+        Title: "KRK",
+        Year: "2023-04-14",
+        Poster:
+          "https://img1.hotstarext.com/image/upload/f_auto,t_web_vl_3x/sources/r1/cms/prod/3451/1253451-v-9970655f39c7",
+        rating: "3",
+      },
+      {
+        Title: "Baaghi-3",
+        Year: "2020-03-04",
+        Poster:
+          "https://img1.hotstarext.com/image/upload/f_auto,t_web_vl_3x/sources/r1/cms/prod/6536/846536-v",
+        rating: "5",
+      },
+      {
+        Title: "Tanhaji",
+        Year: "2020-11-07",
+        Poster:
+          "https://img1.hotstarext.com/image/upload/f_auto,t_web_vl_1_5x/sources/r1/cms/prod/7676/647676-v",
+        rating: "3",
+      },
+      {
+        Title: "Badhaai Ho",
+        Year: "2018-03-06",
+        Poster:
+          "https://img1.hotstarext.com/image/upload/f_auto,t_web_vl_1_5x/sources/r1/cms/prod/7309/177309-v",
+        rating: "4",
+      },
+      {
+        Title: "Bahubali 2",
+        Year: "2017-07-01",
+        Poster:
+          "https://img1.hotstarext.com/image/upload/f_auto,t_web_vl_3x/sources/r1/cms/prod/5085/635085-v",
+        rating: "5",
+      },
+      {
+        Title: "KGF",
+        Year: "2018-06-06",
+        Poster:
+          "https://img1.hotstarext.com/image/upload/f_auto,t_web_vl_1_5x/sources/r1/cms/prod/1805/1281805-v-aa8282c16ef4",
+        rating: "5",
+      },
+    ];
+
+    //store all image to LS
+    localStorage.setItem("movies", JSON.stringify(moviesArray));
+
+    //fetch images from LS
+    let moviesArrayLS = JSON.parse(localStorage.getItem("movies")) || [];
+
+    //display movies list
+    displayMovies(moviesArrayLS);
+    function displayMovies(data) {
+      container.innerHTML = "";
+      data.forEach(function (movie) {
+        let card = document.createElement("div");
+
+        let img = document.createElement("img");
+        img.setAttribute("id", "movie-img");
+        if (movie.Poster) img.src = movie.Poster;
+
+        let name = document.createElement("h2");
+        name.innerText = movie.Title;
+
+        let release_date = document.createElement("h3");
+        release_date.innerText = `Release: ${movie.Year}`;
+
+        let IMDb_rating = document.createElement("h4");
+        if (movie.rating == 5) {
+          IMDb_rating.innerText = `⭐⭐⭐⭐⭐ (${movie.rating})`;
+        } else if (movie.rating == 4) {
+          IMDb_rating.innerText = `⭐⭐⭐⭐ (${movie.rating})`;
+        } else if (movie.rating == 4) {
+          IMDb_rating.innerText = `⭐⭐⭐⭐ (${movie.rating})`;
+        } else if (movie.rating == 3) {
+          IMDb_rating.innerText = `⭐⭐⭐ (${movie.rating})`;
+        } else if (movie.rating == 2) {
+          IMDb_rating.innerText = `⭐⭐ (${movie.rating})`;
+        } else if (movie.rating == 1) {
+          IMDb_rating.innerText = `⭐ (${movie.rating})`;
+        }
+
+        card.append(img, name, release_date, IMDb_rating);
+        container.append(card);
+      });
+    }
+  </script>
+</html>

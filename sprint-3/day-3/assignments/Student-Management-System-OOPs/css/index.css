@@ -1,0 +1,12 @@
+#container {
+  width: 100%;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+}
+#container h2 {
+  background-color: #14532d;
+  color: white;
+  padding: 10px 15px;
+  margin-top: 250px;
+}

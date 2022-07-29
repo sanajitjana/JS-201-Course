@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    //custom Array constructor which will return an array object
+    //It have a property size based on the length of arguments passed
+    function customArray(...index) {
+      this.arr = {};
+      for (let i = 0; i < index.length; i++) {
+        this.arr[i] = index[i];
+      }
+      this.size = Object.keys(this.arr).length;
+    }
+    let x = new customArray(1, 2, 3, 4, 5, 6);
+    // console.log("Array of object below :");
+    // console.log(x);
+
+    // myPop function
+    customArray.prototype.myPop = function () {
+      if (this.size == 0) {
+        return undefined;
+      } else {
+        let last_element = this.arr[this.size - 1];
+        delete last_element;
+        this.size--;
+        return last_element;
+      }
+    };
+    // let popElelemnt = x.myPop();
+    // console.log(`Pop Element = ${popElelemnt}`);
+    // console.log("After pop the array looj like below :");
+    // console.log(x);
+
+    // myPush function
+    customArray.prototype.myPush = function (val) {
+      this.arr[this.size] = val;
+      this.size++;
+    };
+    // x.myPush(30);
+    // console.log("After push (30) to the array look like below :");
+    // console.log(x);
+
+    // myForEach function
+    customArray.prototype.myForEach = function (func) {
+      let arrayFromObj = Object.values(this.arr);
+      for (let i = 0; i < this.size; i++) {
+        // console.log(func(arrayFromObj[i]));
+      }
+    };
+    x.myForEach(function (ele) {
+      return ele * 2;
+    });
+
+    // myMap function
+    customArray.prototype.myMap = function (func) {
+      let arrayFromObj = Object.values(this.arr);
+      let newArr = [];
+      for (let i = 0; i < this.size; i++) {
+        newArr.push(func(arrayFromObj[i]));
+      }
+      return newArr;
+    };
+    let mapResult = x.myMap(function (ele) {
+      return ele * 2;
+    });
+    // console.log(mapResult);
+
+    // myFilter function
+    customArray.prototype.myFilter = function (func) {
+      let arrayFromObj = Object.values(this.arr);
+      let newArr = [];
+      for (let i = 0; i < this.size; i++) {
+        let trueValue = func(arrayFromObj[i]);
+        if (trueValue) {
+          newArr.push(trueValue);
+        }
+      }
+      return newArr;
+    };
+    let filterResult = x.myFilter(function (ele) {
+      // return only even no
+      if (ele % 2 == 0) return ele;
+    });
+    // console.log(filterResult);
+
+    // myReduce function
+    customArray.prototype.myReduce = function (func, acc) {
+      let arrayFromObj = Object.values(this.arr);
+
+      // if accumulator initial value is not mentioned
+      if (arguments.length == 1) {
+        acc = 0;
+      }
+      for (let i = 0; i < this.size; i++) {
+        let ele = arrayFromObj[i];
+        acc = func(acc, ele);
+      }
+      return acc;
+    };
+    let reduceResult = x.myReduce(function (acc, val) {
+      return acc + val;
+    });
+    // console.log(reduceResult);
+  </script>
+</html>

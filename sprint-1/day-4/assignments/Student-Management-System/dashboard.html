@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Student Management System (25-06-2022) - Sanajit Jana (fw19_0513)
+    </title>
+  </head>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+    }
+    #middleBox {
+      display: flex;
+      flex-direction: column;
+      font-family: sans-serif;
+      align-items: center;
+      margin: auto;
+      margin-top: 200px;
+    }
+    #navbar {
+      padding: 5px 100px;
+      background-color: #1c2938;
+      display: grid;
+      grid-template-columns: 85% 15%;
+      grid-template-rows: auto;
+      gap: 20px;
+    }
+    #navbar > div:nth-child(2) {
+      display: flex;
+      justify-content: space-between;
+    }
+    #navbar > div > p {
+      color: #d7d7d7;
+    }
+    #studentsInBatch {
+      padding: 5px 100px;
+      background-color: gold;
+      display: flex;
+      gap: 0px 40px;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+    }
+    #title {
+      font-size: 22px;
+    }
+    #students-table {
+      width: 90%;
+      margin: auto;
+      margin-top: 50px;
+      margin-bottom: 50px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px;
+    }
+    .product {
+      box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+        rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+      border-radius: 5px;
+      padding: 15px;
+    }
+    .product > img {
+      width: 150px;
+    }
+    #counter {
+      text-align: center;
+      margin-top: 50px;
+      font-size: 20px;
+    }
+    #price {
+      margin-top: -5px;
+    }
+    #batch {
+      margin-top: -5px;
+    }
+    #remove {
+      padding: 5px 10px;
+      margin-right: 10px;
+    }
+    #remove:hover {
+      cursor: pointer;
+      border-color: transparent;
+      background-color: red;
+      color: white;
+    }
+  </style>
+  <body>
+    <div id="students-table"></div>
+    <div id="studentsInBatch"></div>
+  </body>
+  <script>
+    //navbar create
+    let arr = ["Home", "Add-Students"];
+    let page = ["index", "add-students"];
+    let navbar = document.createElement("div");
+    navbar.setAttribute("id", "navbar");
+    let logoBox = document.createElement("div");
+    let logoAnchor = document.createElement("a");
+    logoAnchor.setAttribute("href", "index.html");
+    logoAnchor.style.textDecoration = "none";
+    logoAnchor.style.color = "#d7d7d7";
+    let logo = document.createElement("p");
+    logoAnchor.innerText = "Masai School";
+    logo.append(logoAnchor);
+
+    let menuBox = document.createElement("div");
+    for (let i = 0; i < arr.length; i++) {
+      let menu = document.createElement("p");
+      let anchor = document.createElement("a");
+      anchor.style.textDecoration = "none";
+      anchor.style.color = "#d7d7d7";
+      anchor.setAttribute("href", `${page[i]}.html`);
+      anchor.innerText = arr[i];
+
+      menu.append(anchor);
+      menuBox.append(menu);
+    }
+    logoBox.append(logo);
+    navbar.append(logoBox, menuBox);
+    //navbar end
+
+    //product tables
+    let studentTable = document.querySelector("#students-table");
+    let countDisplay = document.createElement("div");
+    countDisplay.setAttribute("id", "counter");
+    let studentsArray = JSON.parse(localStorage.getItem("Students")) || [];
+    let trashArray = JSON.parse(localStorage.getItem("trash")) || [];
+    let studentsCount = 0;
+
+    displayData(studentsArray, studentsCount);
+    function displayData(data, counter) {
+      studentTable.innerHTML = "";
+      data.forEach(function (ele, index, arr) {
+        let studentsCard = document.createElement("div");
+        studentsCard.setAttribute("class", "product");
+
+        //student img
+        let img = document.createElement("img");
+        img.setAttribute("src", ele.image);
+        img.setAttribute("id", "pro-img");
+
+        //student name
+        let product_title = document.createElement("h3");
+        product_title.setAttribute("id", "title");
+        product_title.innerText = ele.name;
+
+        //course
+        let course = document.createElement("h4");
+        course.setAttribute("id", "price");
+        course.innerText = ele.course;
+
+        //batch
+        let batch = document.createElement("h5");
+        batch.setAttribute("id", "batch");
+        batch.innerText = `${ele.unit} | ${ele.batch}`;
+
+        //action button
+        let removeBtn = document.createElement("button");
+        removeBtn.innerText = "Remove";
+        removeBtn.setAttribute("id", "remove");
+        removeBtn.addEventListener("click", function () {
+          let child = document.getElementById("pro-img");
+          child.parentElement.remove();
+          removeEleFunc(index, arr);
+        });
+
+        //append
+        studentsCard.append(img, product_title, course, batch, removeBtn);
+        studentTable.append(studentsCard);
+        counter++;
+      });
+
+      //total students
+      if (counter > 0) {
+        countDisplay.innerText = `Total Students = ${counter}`;
+      } else {
+        countDisplay.innerText = `Empty!`;
+      }
+    }
+
+    //remove btn function
+    function removeEleFunc(index, arr) {
+      //remove item
+      let trashItem = arr.splice(index, 1);
+      localStorage.setItem("Students", JSON.stringify(arr));
+
+      //save remove item in trash
+      trashArray.push(trashItem[0]);
+      localStorage.setItem("trash", JSON.stringify(trashArray));
+
+      //invoke display function after remove
+      displayData(arr, studentsCount);
+      displaySdudentInBatch();
+    }
+
+    //function displaySdudentInBatch
+    displaySdudentInBatch();
+    function displaySdudentInBatch() {
+      let studentsArrayFromLS =
+        JSON.parse(localStorage.getItem("Students")) || [];
+      let obj = {};
+      for (let i = 0; i < studentsArrayFromLS.length; i++) {
+        let data = studentsArrayFromLS[i];
+        if (!obj[data.batch]) {
+          obj[data.batch] = 0;
+        }
+      }
+      for (let i = 0; i < studentsArrayFromLS.length; i++) {
+        let data = studentsArrayFromLS[i];
+        obj[data.batch]++;
+      }
+      let counterLine = document.querySelector("#studentsInBatch");
+      counterLine.innerHTML = "";
+      for (let key in obj) {
+        let pLine = document.createElement("p");
+        let val = obj[key];
+        pLine.innerText = `Ft-Web_${key} - ${val}`;
+        counterLine.append(pLine);
+      }
+    }
+    let studentsInBatch = document.querySelector("#studentsInBatch");
+    document
+      .querySelector("body")
+      .append(navbar, studentsInBatch, countDisplay, studentTable);
+  </script>
+</html>

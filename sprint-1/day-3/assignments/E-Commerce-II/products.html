@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>E-Commerce II (23-06-2022) - Sanajit Jana (fw19_0513)</title>
+  </head>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+    }
+    #middleBox {
+      display: flex;
+      flex-direction: column;
+      font-family: sans-serif;
+      align-items: center;
+      margin: auto;
+      margin-top: 200px;
+    }
+    #navbar {
+      padding: 5px 100px;
+      background-color: #1c2938;
+      display: grid;
+      grid-template-columns: 85% 15%;
+      grid-template-rows: auto;
+      gap: 20px;
+    }
+    #navbar > div:nth-child(2) {
+      display: flex;
+      justify-content: space-between;
+    }
+    #navbar > div > p {
+      color: #d7d7d7;
+    }
+    #title {
+      font-size: 22px;
+    }
+    #product-table {
+      width: 90%;
+      margin: auto;
+      margin-top: 50px;
+      margin-bottom: 50px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px;
+    }
+    .product {
+      box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+        rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+      border-radius: 5px;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+    }
+    .product > img {
+      width: 150px;
+    }
+    #counter {
+      text-align: center;
+      margin-top: 50px;
+      font-size: 20px;
+    }
+    #price {
+      margin-top: -5px;
+    }
+    #sold-status {
+      margin-top: -5px;
+    }
+    #remove {
+      padding: 5px 10px;
+      margin-right: 10px;
+    }
+    #remove:hover {
+      cursor: pointer;
+      border-color: transparent;
+      background-color: red;
+      color: white;
+    }
+    #sold {
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+    .red {
+      background-color: red !important;
+      color: white !important;
+      border-color: transparent;
+    }
+    .green {
+      background-color: green !important;
+      color: white !important;
+      border-color: transparent;
+    }
+  </style>
+  <body>
+    <div id="product-table"></div>
+  </body>
+  <script>
+    //navbar create
+    let arr = ["Home", "Admin"];
+    let page = ["index", "admin"];
+    let navbar = document.createElement("div");
+    navbar.setAttribute("id", "navbar");
+    let logoBox = document.createElement("div");
+    let logoAnchor = document.createElement("a");
+    logoAnchor.setAttribute("href", "index.html");
+    logoAnchor.style.textDecoration = "none";
+    logoAnchor.style.color = "#d7d7d7";
+    let logo = document.createElement("p");
+    logoAnchor.innerText = "Rebook";
+    logo.append(logoAnchor);
+
+    let check = localStorage.getItem("checkLoginAuth");
+    let menuBox = document.createElement("div");
+    for (let i = 0; i < arr.length; i++) {
+      let menu = document.createElement("p");
+      let anchor = document.createElement("a");
+      anchor.style.textDecoration = "none";
+      anchor.style.color = "#d7d7d7";
+      anchor.setAttribute("href", `${page[i]}.html`);
+
+      if (check == null) {
+        anchor.innerText = arr[i];
+      } else {
+        arr[3] = "Logged In";
+        anchor.innerText = arr[i];
+      }
+
+      menu.append(anchor);
+      menuBox.append(menu);
+    }
+    logoBox.append(logo);
+    navbar.append(logoBox, menuBox);
+    //navbar end
+
+    //product tables
+    let productTable = document.querySelector("#product-table");
+    let countDisplay = document.createElement("div");
+    countDisplay.setAttribute("id", "counter");
+    let productsArray = JSON.parse(localStorage.getItem("Products")) || [];
+    let productCount = 0;
+
+    displayData(productsArray, productCount);
+    function displayData(data, counter) {
+      productTable.innerHTML = "";
+      data.forEach(function (ele, index, arr) {
+        let productCard = document.createElement("div");
+        productCard.setAttribute("class", "product");
+
+        //product img
+        let img = document.createElement("img");
+        img.setAttribute("src", ele.product_img_url);
+        img.setAttribute("id", "pro-img");
+
+        //product title
+        let product_title = document.createElement("h3");
+        product_title.setAttribute("id", "title");
+        product_title.innerText = ele.product_name;
+
+        //price
+        let product_price = document.createElement("h4");
+        product_price.setAttribute("id", "price");
+        product_price.innerText = `Rs. ${ele.product_price}/-`;
+
+        //sold status
+        let sold_status = document.createElement("h5");
+        sold_status.setAttribute("id", "sold-status");
+        sold_status.innerText = ele.product_sold;
+
+        //action button
+        let btnRow = document.createElement("div");
+        let removeBtn = document.createElement("button");
+        removeBtn.innerText = "Remove";
+        removeBtn.setAttribute("id", "remove");
+
+        //remove btn function
+        removeBtn.addEventListener("click", function () {
+          let child = document.getElementById("pro-img");
+          child.parentElement.remove();
+          removeEleFunc(index, arr);
+        });
+        let soldBtn = document.createElement("button");
+        soldBtn.innerText = "Sold";
+        soldBtn.setAttribute("id", "sold");
+
+        //sold btn color
+        if (ele.product_sold == false) {
+          soldBtn.setAttribute("class", "green");
+        } else {
+          soldBtn.setAttribute("class", "red");
+        }
+
+        // sold btn function
+        soldBtn.addEventListener("click", function () {
+          soldBtnFunc(ele, index, arr);
+        });
+        btnRow.append(removeBtn, soldBtn);
+
+        //append
+        productCard.append(
+          img,
+          product_title,
+          product_price,
+          sold_status,
+          btnRow
+        );
+        productTable.append(productCard);
+        counter++;
+      });
+      if (counter > 0) {
+        countDisplay.innerText = `Total Count = ${counter}`;
+      } else {
+        countDisplay.innerText = `Empty!`;
+      }
+    }
+
+    //remove btn function
+    function removeEleFunc(index, arr) {
+      arr.splice(index, 1);
+      localStorage.setItem("Products", JSON.stringify(arr));
+      displayData(arr, productCount);
+    }
+
+    //sold toggle btn function
+    function soldBtnFunc(ele, index, arr) {
+      let ans = ele.product_sold;
+      if (ans == false) {
+        ele.product_sold = true;
+        displayData(productsArray, productCount);
+        localStorage.setItem("Products", JSON.stringify(arr));
+      } else {
+        ele.product_sold = false;
+        displayData(productsArray, productCount);
+        localStorage.setItem("Products", JSON.stringify(arr));
+      }
+    }
+    document.querySelector("body").append(navbar, countDisplay, productTable);
+  </script>
+</html>

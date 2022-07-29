@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IPL Ticket Booking System</title>
+  </head>
+  <body></body>
+  <script>
+    class Vehicle {
+      #type;
+      #color;
+      #regNumber;
+
+      constructor(type, color, reg) {
+        this.#type = type;
+        this.#color = color;
+        this.#regNumber = reg;
+      }
+
+      get regNumber() {
+        return this.#regNumber;
+      }
+
+      get type() {
+        return this.#type;
+      }
+    }
+
+    // VVIPs, VIPs and General
+
+    class VVIPs extends Vehicle {
+      constructor(color, reg) {
+        super("VVIPs", color, reg);
+      }
+    }
+
+    class VIPs extends Vehicle {
+      constructor(color, reg) {
+        super("VIPs", color, reg);
+      }
+    }
+
+    class General extends Vehicle {
+      constructor(color, reg) {
+        super("General", color, reg);
+      }
+    }
+
+    let p1 = new VVIPs("Blue", "WB124578");
+    // console.log(p1);
+    // console.log(p1.regNumber);
+
+    class IPL_Stadium {
+      #floors;
+
+      constructor(no) {
+        this.#floors = [];
+        this.numberOfFloors = no;
+
+        for (let i = 0; i < no; i++) {
+          this.#floors[i] = new ParkingFloors(i, no);
+        }
+      }
+
+      findSlot(type) {
+        //to check typeof vehilcle na dempty slot
+        for (let i = 0; i < this.numberOfFloors; i++) {
+          // iterating through slot
+          for (let slot of this.#floors[i].parkingSpots) {
+            if (slot.type === type && !slot.isBooked) {
+              return { floorNumber: i, slot: slot };
+            }
+          }
+        }
+        return false;
+      }
+      parkVehicle(vehicle) {
+        let slot = this.findSlot(vehicle.type);
+        slot.slot.book = true;
+      }
+    }
+
+    class ParkingFloors {
+      #floorNumber;
+
+      constructor(floorNum, maxFloor) {
+        this.#floorNumber = floorNum;
+        this.parkingSpots = [];
+        for (var i = 0; i < maxFloor; i++) {
+          if (i === 0) {
+            this.parkingSpots.push(new Slot("VVIPs", i));
+          } else if (i === 1) {
+            this.parkingSpots.push(new Slot("VIPs", i));
+          } else {
+            this.parkingSpots.push(new Slot("General", i));
+          }
+        }
+      }
+    }
+
+    class Slot {
+      #isBooked;
+
+      constructor(type, no) {
+        this.floorNumber = no;
+        this.type = type;
+        this.#isBooked = false;
+      }
+
+      get isBooked() {
+        return this.#isBooked;
+      }
+
+      set book(val) {
+        this.#isBooked = val;
+      }
+    }
+
+    let stadium = new IPL_Stadium(3);
+    console.log(stadium);
+
+    let c1 = new VVIPs("Grey", "WB454");
+    stadium.parkVehicle(c1);
+    // console.log(c1);
+
+    let b1 = new VIPs("Red", "WB4564");
+    stadium.parkVehicle(b1);
+    // console.log(b1);
+  </script>
+</html>

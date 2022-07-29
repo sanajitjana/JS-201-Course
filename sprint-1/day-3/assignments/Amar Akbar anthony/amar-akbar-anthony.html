@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Amar Akbar anthony (23-06-2022) - Sanajit Jana (fw19_0513)</title>
+  </head>
+  <body></body>
+  <script>
+    let Amar = {
+      skill: "singer",
+      borrowSkill: function () {
+        return `Amar is a ${this.skill}, and he lives in Goa`;
+      },
+    };
+    let Akbar = {
+      skill: "chef",
+      borrowSkill: function () {
+        return `Akbar is a ${this.skill}, and he lives in Mumbai`;
+      },
+    };
+    let Anthony = {
+      skill: "magician",
+      borrowSkill: function () {
+        return `Anthony is a ${this.skill}, and he lives in Kashmir`;
+      },
+    };
+
+    //borrow other's skill using call
+    console.log(Amar.borrowSkill.call(Akbar));
+    console.log(Akbar.borrowSkill.call(Anthony));
+    console.log(Anthony.borrowSkill.call(Amar));
+    console.log(Amar.borrowSkill.call(Anthony));
+    console.log(Akbar.borrowSkill.call(Amar));
+    console.log(Anthony.borrowSkill.call(Akbar));
+  </script>
+</html>

@@ -1,0 +1,22 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+#navbar {
+  display: flex;
+  border: 1px solid rgb(233, 233, 233);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  justify-content: flex-end;
+  padding: 0px 50px;
+}
+#navbar > a {
+  margin-left: 10px;
+  text-decoration: none;
+  padding: 0px 15px;
+  color: black;
+}
+#navbar > a:hover {
+  background-color: black;
+  color: white;
+}
